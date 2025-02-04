@@ -175,6 +175,7 @@ const GetProductsWithBrandName = ({ data }) => {
           products?.pagination.map((n) =>
             page === n ? (
               <button
+                key={n}
                 onClick={() => setPage(n)}
                 className="btn btn-sm bg-pink-600  border-none outline-none hover:bg-pink-500"
               >
@@ -182,6 +183,7 @@ const GetProductsWithBrandName = ({ data }) => {
               </button>
             ) : (
               <button
+                key={n}
                 onClick={() => setPage(n)}
                 className="btn btn-sm  border-none outline-none bg-slate-400 text-[#000] hover:bg-pink-500"
               >

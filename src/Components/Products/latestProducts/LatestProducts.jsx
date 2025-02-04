@@ -2,7 +2,8 @@
 import { IoIosFlash } from "react-icons/io";
 import LatestProductsSidler from "./LatestProductsSidler";
 import "./style.css";
-const LatestProducts = () => {
+
+export default function LatestProducts() {
   return (
     <div className="container mx-auto px-4 mt-10">
       <div className="">
@@ -21,6 +22,4 @@ const LatestProducts = () => {
       <LatestProductsSidler></LatestProductsSidler>
     </div>
   );
-};
-
-export default LatestProducts;
+}

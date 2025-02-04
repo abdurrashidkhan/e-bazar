@@ -1,3 +1,4 @@
+"use client";
 import { auth } from "@/app/firebase.init";
 import Loading from "@/Components/Common/Loading";
 import useProducts from "@/Components/Hook/UseProducts";
@@ -5,10 +6,12 @@ import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AiFillStar, AiOutlinePlus, AiOutlineStar } from "react-icons/ai";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 import Swal from "sweetalert2";
 import "./style.css";
 
-const LatestProductsSidler = () => {
+export default function LatestProductsSidler() {
   const [user, loading, error] = useAuthState(auth);
   const saveCard = (data) => {
     const product = {
@@ -185,6 +188,4 @@ const LatestProductsSidler = () => {
       </Slider>
     </div>
   );
-};
-
-export default LatestProductsSidler;
+}

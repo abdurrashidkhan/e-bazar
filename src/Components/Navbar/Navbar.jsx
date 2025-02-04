@@ -1,15 +1,15 @@
+"use client";
 import { signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
 
-import auth from "../../firebase.init";
-import CustomLink from "../Common/CoustomLink/CoustomLink";
+import { auth } from "@/app/firebase.init";
+import Link from "next/link";
 import Loading from "../Common/Loading";
-import Search from "./Search";
-import TopBar from "./TopBar";
 import "./style.css";
+import TopBar from "./TopBar";
 const Navbar = () => {
   const [card, setCard] = useState([]);
   const [page, setPage] = useState(1);
@@ -80,64 +80,61 @@ const Navbar = () => {
                   className="menu menu-compact dropdown-content mt-3 p-2 shadow-2xl bg-base-100 rounded w-52"
                 >
                   <li>
-                    <CustomLink
-                      className="text-slate-600 font-semibold"
-                      href="/"
-                    >
+                    <Link className="text-slate-600 font-semibold" href="/">
                       Home
-                    </CustomLink>
+                    </Link>
                   </li>
 
                   <li>
-                    <CustomLink
+                    <Link
                       className="text-slate-600 font-semibold"
                       href={"/products/page=1"}
                     >
                       Products
-                    </CustomLink>
+                    </Link>
                   </li>
 
                   <li>
-                    <CustomLink
+                    <Link
                       className="text-slate-600 font-semibold"
                       href={`/new-arrivals/page=${1}`}
                     >
                       New Arrivals
-                    </CustomLink>
+                    </Link>
                   </li>
 
                   <li>
-                    <CustomLink
+                    <Link
                       className="text-slate-600 font-semibold"
                       href={`/today-deals/page=1`}
                     >
                       Today Deals
-                    </CustomLink>
+                    </Link>
                   </li>
                   <li>
-                    <CustomLink
+                    <Link
                       className="text-slate-600 font-semibold"
                       href={"/gift-card/page=1"}
                     >
                       Gift Card
-                    </CustomLink>
+                    </Link>
                   </li>
 
                   <li>
-                    <CustomLink
+                    <Link
                       className="text-slate-600 font-semibold"
                       href={`/registry-gifting/page=${1}`}
                     >
                       Registry & Gifting
-                    </CustomLink>
+                    </Link>
                   </li>
                   {/* <li>
-                    <CustomLink
+                    <Link
                       className="text-slate-600 font-semibold"
                       href={"/blog"}
                     >
                       Blog
-                    </CustomLink>
+                    </Link>
                   </li> */}
                 </ul>
               </div>
@@ -151,58 +148,58 @@ const Navbar = () => {
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal p-0">
                 <li>
-                  <CustomLink className="text-slate-600 font-semibold" href="">
+                  <Link className="text-slate-600 font-semibold" href="">
                     Home
-                  </CustomLink>
+                  </Link>
                 </li>
                 <li>
-                  <CustomLink
+                  <Link
                     className="text-slate-600 font-semibold"
                     href={`/products/page=1`}
                   >
                     Products
-                  </CustomLink>
+                  </Link>
                 </li>
                 <li>
-                  <CustomLink
+                  <Link
                     className="text-slate-600 font-semibold"
                     href={`/new-arrivals/page=${1}`}
                   >
                     New Arrivals
-                  </CustomLink>
+                  </Link>
                 </li>
                 <li>
-                  <CustomLink
+                  <Link
                     className="text-slate-600 font-semibold"
                     href={`/today-deals/page=1`}
                   >
                     Today Deals
-                  </CustomLink>
+                  </Link>
                 </li>
 
                 <li>
-                  <CustomLink
+                  <Link
                     className="text-slate-600 font-semibold"
                     href={"/gift-card/page=1"}
                   >
                     Gift Card
-                  </CustomLink>
+                  </Link>
                 </li>
                 <li>
-                  <CustomLink
+                  <Link
                     className="text-slate-600 font-semibold"
                     href={`/registry-gifting/page=${1}`}
                   >
                     Registry & Gifting
-                  </CustomLink>
+                  </Link>
                 </li>
                 <li>
-                  <CustomLink
+                  <Link
                     className="text-slate-600 font-semibold"
                     href={"/support"}
                   >
                     Support
-                  </CustomLink>
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -33,7 +33,10 @@ const TotalProducts = () => {
           <ul className="grid grid-cols-3 sm:grid-cols-4 items-stretch">
             {uniqueArray.sort()?.map((b) =>
               brandName === b ? (
-                <li className="text-pink-700 text-sm py-1 px-4 text-center rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]">
+                <li
+                  className="text-pink-700 text-sm py-1 px-4 text-center rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]"
+                  key={b}
+                >
                   <button
                     className="text-start inline-block w-full capitalize"
                     onClick={() => setBrandName(b)}
@@ -42,7 +45,10 @@ const TotalProducts = () => {
                   </button>
                 </li>
               ) : (
-                <li className="text-slate-700 text-sm py-1 px-4 text-center rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]">
+                <li
+                  key={b}
+                  className="text-slate-700 text-sm py-1 px-4 text-center rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]"
+                >
                   <button
                     className="text-start inline-block w-full capitalize"
                     onClick={() => setBrandName(b)}
@@ -76,7 +82,10 @@ const TotalProducts = () => {
             <ul className="">
               {uniqueArray.sort()?.map((b) =>
                 brandName === b ? (
-                  <li className="text-[#F8426A] text-base py-1 px-4 rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]">
+                  <li
+                    className="text-[#F8426A] text-base py-1 px-4 rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]"
+                    key={b}
+                  >
                     <button
                       className="text-start inline-block w-full capitalize"
                       onClick={() => setBrandName(b)}
@@ -85,7 +94,10 @@ const TotalProducts = () => {
                     </button>
                   </li>
                 ) : (
-                  <li className="text-slate-700 text-base py-1 px-4 rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]">
+                  <li
+                    className="text-slate-700 text-base py-1 px-4 rounded ease-in-out duration-700 hover:bg-[#0000002f] hover:text-[#F8426A]"
+                    key={b}
+                  >
                     <button
                       className="text-start inline-block w-full capitalize"
                       onClick={() => setBrandName(b)}

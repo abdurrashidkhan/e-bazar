@@ -1,5 +1,6 @@
-import Link from 'next/link';
-const FooterInfo = () => {
+import Link from "next/link";
+
+export default function FooterInfo() {
   return (
     <div className='container mx-auto px-4 py-4'>
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
@@ -39,7 +40,5 @@ const FooterInfo = () => {
 
       </div>
     </div>
-  );
-};
-
-export default FooterInfo;
+  )
+}
