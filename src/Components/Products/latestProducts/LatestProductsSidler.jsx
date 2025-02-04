@@ -1,14 +1,11 @@
-import { AiFillStar, AiOutlinePlus, AiOutlineStar } from "react-icons/ai";
-
-import Slider from "react-slick";
-
-import { useAuthState } from "react-firebase-hooks/auth";
-import Swal from "sweetalert2";
-
 import { auth } from "@/app/firebase.init";
 import Loading from "@/Components/Common/Loading";
 import useProducts from "@/Components/Hook/UseProducts";
 import Link from "next/link";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { AiFillStar, AiOutlinePlus, AiOutlineStar } from "react-icons/ai";
+import Slider from "react-slick";
+import Swal from "sweetalert2";
 import "./style.css";
 
 const LatestProductsSidler = () => {

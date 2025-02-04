@@ -1,20 +1,17 @@
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-function CustomLink({ children, to, ...props }) {
-  let resolved = useResolvedPath(to);
-  let match = useMatch({ path: resolved.pathname, end: true });
+function CustomLink({ children, href, ...props }) {
+  const router = useRouter();
+  const isActive = router.pathname === href;
+
   return (
     <div id="active">
-      <Link
-        style={{
-          color: match ? "#F8426A" : "#475569",
-        }}
-        href={to}
-        {...props}
-      >
-        {children}
+      <Link href={href} {...props}>
+        <span style={{ color: isActive ? "#F8426A" : "#475569" }}>
+          {children}
+        </span>
       </Link>
-      {/* {match && " (active)"} */}
     </div>
   );
 }

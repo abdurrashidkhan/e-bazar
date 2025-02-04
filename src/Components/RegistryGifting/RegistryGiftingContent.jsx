@@ -1,27 +1,30 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import auth from "../../firebase.init";
 import Loading from "../Common/Loading";
 
 const RegistryGiftingContent = () => {
   const [user, loading, error] = useAuthState(auth);
-  const { page } = useParams();
-  const p = page.slice(5, page.length);
+  const router = useRouter();
+  const { page } = router.query;
+  const p = page ? page.slice(5) : "";
 
   const [pages, setPage] = useState(1);
   const [products, setProducts] = useState([]);
-  useEffect(() => {
-    fetch(
-      `https://actual-products-of-e-commerce-server-site.vercel.app/registry-gifting/${p}`
-    )
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, [p]);
-  // console.log(products?.status);
 
-  // card operation
+  useEffect(() => {
+    if (p) {
+      fetch(
+        `https://actual-products-of-e-commerce-server-site.vercel.app/registry-gifting/${p}`
+      )
+        .then((res) => res.json())
+        .then((data) => setProducts(data));
+    }
+  }, [p]);
+
   const saveCard = (data) => {
     const product = {
       email: user.email,
@@ -43,144 +46,102 @@ const RegistryGiftingContent = () => {
       {
         method: "POST",
         headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: JSON.stringify(product),
       }
     )
       .then((res) => res.json())
-      .then((data) => {
-        Swal.fire("Add to card", "", "success");
+      .then(() => {
+        Swal.fire("Added to cart", "", "success");
       });
   };
-  if (!products?.status) {
+
+  if (loading || !products?.status) {
     return <Loading />;
   }
-  if (loading) {
-    return <Loading />;
-  }
+
   if (error) {
-    return console.log(error);
+    console.error(error);
+    return null;
   }
+
   return (
     <div>
-      <div>
-        <h1 className="text-xl sm:text-2xl py-5 capitalize text-slate-600">
-          Registry and Gifting for Your Loving People
-        </h1>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 items-center justify-items-center a gap-3 py-6">
+      <h1 className="text-xl sm:text-2xl py-5 capitalize text-slate-600">
+        Registry and Gifting for Your Loving People
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 py-6">
         {products?.data?.map((p) => (
-          <div key={p._id}>
-            <div
-              className="bg-[#fff] shadow-2xl border border-[#fff] rounded relative hover:border-[#da1a3a79] duration-500 ease-in-out"
-              key={p?._id}
-            >
-              <Link href={`/product/details/${p?._id}`} className="">
-                {p?.productDiscount > 0 && (
-                  <div id="offer" className="absolute top-[2%] left-[2%]">
-                    <h1 className="bg-[#DB1F3E] text-[#fff] px-3 text-base font-ubuntu rounded-[20px] text-center">
-                      {p?.productDiscount}% Off
-                    </h1>
+          <div
+            key={p._id}
+            className="bg-white shadow-2xl border rounded relative hover:border-red-500 duration-500"
+          >
+            <Link href={`/product/details/${p._id}`}>
+              <div>
+                {p.productDiscount > 0 && (
+                  <div className="absolute top-2 left-2 bg-red-600 text-white px-3 text-base rounded-full">
+                    {p.productDiscount}% Off
                   </div>
                 )}
 
-                <div className="">
-                  <img
-                    className="w-full h-[265px] rounded"
-                    src={p?.img}
-                    alt="loading product"
-                    loading="lazy"
-                  />
-                </div>
-                <hr />
+                <img
+                  className="w-full h-64 rounded"
+                  src={p.img}
+                  alt={p.title}
+                  loading="lazy"
+                />
+
                 <div className="p-2 text-start">
                   {p.price > 0 ? (
                     <div className="flex items-center gap-5">
-                      <h1 className="capitalize text-[15px] py-2 text-slate-700">
-                        price : &#2547;{" "}
-                        {p?.price -
-                          parseInt((p?.price * p?.productDiscount) / 100)}
+                      <h1 className="text-slate-700">
+                        Price: ৳
+                        {p.price -
+                          Math.floor((p.price * p.productDiscount) / 100)}
                       </h1>
-                      {p?.productDiscount > 0 && (
-                        <del className="text-[14px] text-slate-400">
-                          {" "}
-                          &#2547; {p?.price}
-                        </del>
+                      {p.productDiscount > 0 && (
+                        <del className="text-slate-400">৳{p.price}</del>
                       )}
                     </div>
                   ) : (
-                    <h1 className="capitalize text-[15px] py-2 text-slate-700">
-                      Coming Soon
-                    </h1>
+                    <h1 className="text-slate-700">Coming Soon</h1>
                   )}
-                  <p className="text-slate-600 text-[15px]   font-medium capitalize pb-6">
-                    {p?.title.length > 48
-                      ? `${p?.title.slice(0, 48)}...`
-                      : p?.title}
-                  </p>
 
-                  <div className="rating rating-sm">
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className=" mask mask-star bg-orange-500"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className=" mask mask-star bg-orange-500"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className=" mask mask-star bg-orange-500"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className=" mask mask-star bg-orange-500"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className=" mask mask-star bg-orange-500"
-                    />
-                  </div>
+                  <p className="text-slate-600 font-medium capitalize pb-6">
+                    {p.title.length > 48
+                      ? `${p.title.slice(0, 48)}...`
+                      : p.title}
+                  </p>
                 </div>
-              </Link>
-              <button
-                onClick={() => saveCard(p)}
-                className="absolute bottom-[2%] right-[3%] text-2xl bg-[#00000038] hover:bg-[#00000060] py-0 px-4 rounded hover:text-[#da1a3a] text-[#E94560]"
-              >
-                +
-              </button>
-            </div>
+              </div>
+            </Link>
+
+            <button
+              onClick={() => saveCard(p)}
+              className="absolute bottom-2 right-3 text-2xl bg-black/30 hover:bg-black/50 p-2 rounded text-pink-600 hover:text-red-500"
+            >
+              +
+            </button>
           </div>
         ))}
       </div>
-      <div className="btn-group my-6 items-center rounded bg-none">
-        {products?.length > 12 &&
-          products?.pagination.map((n) =>
-            pages === n ? (
-              <Link
-                href={`/today-deals/page=${n}`}
-                onClick={() => setPage(n)}
-                className="btn btn-sm bg-pink-600  border-none outline-none hover:bg-pink-500"
-              >
-                {n}
-              </Link>
-            ) : (
-              <Link
-                onClick={() => setPage(n)}
-                href={`/today-deals/page=${n}`}
-                className="btn btn-sm  border-none outline-none bg-slate-400 text-[#000] hover:bg-pink-500"
-              >
-                {n}
-              </Link>
-            )
-          )}
+
+      <div className="flex gap-2 my-6">
+        {products?.pagination?.map((n) => (
+          <Link
+            key={n}
+            href={`/today-deals/page=${n}`}
+            onClick={() => setPage(n)}
+            className={`btn btn-sm ${
+              pages === n ? "bg-pink-600" : "bg-slate-400"
+            } hover:bg-pink-500`}
+          >
+            {n}
+          </Link>
+        ))}
       </div>
     </div>
   );

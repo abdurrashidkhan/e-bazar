@@ -1,9 +1,9 @@
+import Link from "next/link";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { BsChatLeftFill, BsGrid3X3GapFill } from "react-icons/bs";
 import { FaShippingFast, FaUserEdit } from "react-icons/fa";
 import { MdPassword, MdPayment } from "react-icons/md";
 import { RiRefund2Fill } from "react-icons/ri";
-import { Link } from "react-router-dom";
 
 const SupportTools = () => {
   return (

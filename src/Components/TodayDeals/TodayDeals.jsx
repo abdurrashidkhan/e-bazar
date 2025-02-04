@@ -1,27 +1,31 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import auth from "../../firebase.init";
 import Commitment from "../Commitment/Commitment";
 import Loading from "../Common/Loading";
 import Footer from "../Footer/Footer";
 import Review from "../Review/Review";
-import "./style.css";
+import styles from "./TodayDeals.module.css"; // Assuming you have a CSS module
+
 const TodayDeals = () => {
-  const { page } = useParams();
-  const p = page.slice(5, page.length);
+  const router = useRouter();
+  const { page } = router.query;
+  const p = page ? page.slice(5) : ""; // Ensure page is defined before slicing
   const [products, setProducts] = useState([]);
   const [pages, setPage] = useState(1);
+
   useEffect(() => {
-    fetch(
-      `https://actual-products-of-e-commerce-server-site.vercel.app/today-deals/${p}`
-    )
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+    if (p) {
+      fetch(
+        `https://actual-products-of-e-commerce-server-site.vercel.app/today-deals/${p}`
+      )
+        .then((res) => res.json())
+        .then((data) => setProducts(data));
+    }
   }, [p]);
-  console.log(products);
 
   // card operation
   const [user, loading, error] = useAuthState(auth);
@@ -67,12 +71,16 @@ const TodayDeals = () => {
   if (error) {
     return console.log(error);
   }
+
   return (
     <>
       <section>
         <div className="">
-          <div className="container mx-auto px-2 relative" id="today_banner">
-            <div className="" id="content_center">
+          <div
+            className="container mx-auto px-2 relative"
+            id={styles.today_banner}
+          >
+            <div className="" id={styles.content_center}>
               <h1 className="text-[#fff] capitalize text-2xl font-mono">
                 Up to 55<span className="font-serif"> % discount </span>
               </h1>
@@ -120,7 +128,7 @@ const TodayDeals = () => {
                             >
                               {p?.productDiscount > 0 && (
                                 <div
-                                  id="offer"
+                                  id={styles.offer}
                                   className="absolute top-[2%] left-[2%]"
                                 >
                                   <h1 className="bg-[#DB1F3E] text-[#fff] px-3 text-base font-ubuntu rounded-[20px] text-center">

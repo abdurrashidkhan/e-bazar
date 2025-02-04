@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
-import { Link } from "react-router-dom";
+
 import auth from "../../firebase.init";
 import CustomLink from "../Common/CoustomLink/CoustomLink";
 import Loading from "../Common/Loading";
