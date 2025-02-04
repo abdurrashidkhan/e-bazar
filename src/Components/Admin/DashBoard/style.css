@@ -1,0 +1,33 @@
+/* #dashboard_content {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+} */
+
+#dashboard_menu {
+  position: fixed;
+  top: 13.5%;
+  left: 5%;
+}
+
+/*  */
+
+@media only screen and (max-width: 375px) {
+  #dashboard_menu {
+    position: fixed;
+    top: 18%;
+    left: 5%;
+  }
+}
+@media only screen and (min-width: 376px) {
+  #dashboard_menu {
+    position: fixed;
+    top: 15%;
+    left: 5%;
+  }
+}

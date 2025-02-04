@@ -1,0 +1,31 @@
+#support_banner {
+  background-image: linear-gradient(to right top, #006457d5, #00484b79),
+    url("../../assert/images/banner/8.jpg");
+  background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 70vh;
+  position: relative;
+}
+
+#support_banner_input {
+  background-image: linear-gradient(to left top, #00000000, #c40079c7),
+    url("../../assert/images/support_search_box.jpg");
+  background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 30vh;
+  position: relative;
+}
+#support_banner_input_content_center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}

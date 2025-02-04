@@ -1,0 +1,12 @@
+.menu :where(li:not(.menu-title):not(:empty)) > :where(:not(ul).active),
+.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):active) {
+  /* --tw-bg-opacity: 1; */
+  /* background-color: hsl(var(--p) / var(--tw-bg-opacity)); */
+  /* --tw-text-opacity: 1; */
+  /* color: hsl(var(--pc) / var(--tw-text-opacity)); */
+}
+.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):focus),
+.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover) {
+  background-color: transparent;
+  color: #d61284 !important;
+}

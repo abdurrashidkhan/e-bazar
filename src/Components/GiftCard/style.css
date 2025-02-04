@@ -1,0 +1,10 @@
+#gift_banner {
+  background-image: linear-gradient(to right top, #006457, #00484bd0),
+    url("../../assert/images/banner/1.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 65vh;
+  position: relative;
+}
