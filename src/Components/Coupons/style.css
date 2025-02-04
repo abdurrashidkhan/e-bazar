@@ -1,0 +1,10 @@
+#coupon_banner {
+  background-image: linear-gradient(to right top, #006457, #00484b70),
+    url("../../assert/images/banner/coupon.jpg");
+  background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 65vh;
+  position: relative;
+}

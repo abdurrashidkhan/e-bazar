@@ -1,0 +1,23 @@
+#loginForm{
+  width: 400px;
+  margin: auto;
+  background-color: #E3ECF0;
+  padding:2rem;
+}
+#forget{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media only screen  and (max-width:570px){
+  #loginForm{
+     width: 100%;
+  }
+  #forget{
+     display:block;
+  }
+  #forget .forget,
+  .sigIn{
+     padding:.2rem 0rem ;
+  }
+}
