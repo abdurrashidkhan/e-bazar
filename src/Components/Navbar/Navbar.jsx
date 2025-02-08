@@ -283,7 +283,7 @@ const Navbar = () => {
                           )}
                         </div>
                       ) : (
-                        <Link href={`/login`}>
+                        <Link href={`/authentication/login`}>
                           {user ? (
                             user?.photoURL ? (
                               <img
