@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
+import { useEffect } from "react";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
-import auth from "../../../firebase.init";
+import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Loading from "../../Common/Loading";
+import Loading from "../../../Components/Common/Loading";
+import auth from "../../../firebase.init";
 
 const SocialLogin = () => {
   const navigate = useNavigate();

@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 import Swal from "sweetalert2";
+import Loading from "../../../Components/Common/Loading";
+import useAdmin from "../../../Components/Hook/useAdmin";
 import auth from "../../../firebase-init";
-import Loading from "../../Common/Loading";
-import useAdmin from "../../Hook/useAdmin";
 
 const AdminCheck = ({ children }) => {
   const [user, loading] = useAuthState(auth);

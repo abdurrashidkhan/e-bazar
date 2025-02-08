@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
-import { FcGoogle } from "react-icons/fc";
+import { FacebookAuthProvider } from "firebase/auth";
+import { useEffect } from "react";
+import { useSignInWithFacebook } from "react-firebase-hooks/auth";
 import { BsFacebook } from "react-icons/bs";
-import auth from "../../../firebase.init";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Loading from "../../Common/Loading";
-import { useSignInWithFacebook } from "react-firebase-hooks/auth";
-import { FacebookAuthProvider } from "firebase/auth";
+import Loading from "../../../Components/Common/Loading";
+import auth from "../../../firebase.init";
 
 const FacebookLogin = () => {
-
-const provider = new FacebookAuthProvider();
-  const [signInWithFacebook, user, loading, error] = useSignInWithFacebook(auth);
+  const provider = new FacebookAuthProvider();
+  const [signInWithFacebook, user, loading, error] =
+    useSignInWithFacebook(auth);
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -30,7 +29,10 @@ const provider = new FacebookAuthProvider();
   return (
     <div>
       <div className="">
-        <BsFacebook onClick={() => signInWithFacebook()}  className="text-4xl text-[#2655ee] cursor-pointer"></BsFacebook>
+        <BsFacebook
+          onClick={() => signInWithFacebook()}
+          className="text-4xl text-[#2655ee] cursor-pointer"
+        ></BsFacebook>
       </div>
     </div>
   );

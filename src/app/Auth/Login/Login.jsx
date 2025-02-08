@@ -1,136 +1,70 @@
-import { useEffect, useState } from "react";
-import {
-  useCreateUserWithEmailAndPassword,
-  useUpdateProfile,
-} from "react-firebase-hooks/auth";
+import { useEffect } from "react";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loading from "../../../Components/Common/Loading";
+import UseToken from "../../../Components/Hook/UseToken";
 import auth from "../../../firebase.init";
-import Loading from "../../Common/Loading";
 import FacebookLogin from "../FacebookLogin/FacebookLogin";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import "./Login.css";
 
-const SignUp = () => {
-  const [agree, setAgree] = useState(false);
-  const navigate = useNavigate();
+const Login = () => {
+  let errorElement;
+  let navigate = useNavigate();
   const location = useLocation();
   const form = location.state?.from?.pathname || "/";
-
-  const [updateProfile] = useUpdateProfile(auth);
-  const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+  // hook
+  const [token] = UseToken(user);
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (e) => {
-    await createUserWithEmailAndPassword(e.email, e.password);
-    await updateProfile({ displayName: e.userName });
-    const userData = { email: e.email, displayName: e.userName };
-    if (e.email) {
-      fetch(
-        `https://actual-products-of-e-commerce-server-site.vercel.app/api/v1/users/${e.email}`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-            // authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(userData),
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          // localStorage.setItem("token", data.token);
-          // setToken(data.token);
-          console.log(data);
-        });
-    }
-  };
-  // google account with login
 
-  // token hook
-  // const [token] = UseToken(user);
+  const onSubmit = (e) => {
+    signInWithEmailAndPassword(e.email, e.password);
+  };
 
   useEffect(() => {
     if (user) {
-      navigate("/login");
-      Swal.fire("your account create successfully", "", "success");
+      navigate(form, { replace: true });
+      Swal.fire("Login successfully", "", "success");
     }
   }, [user, navigate, form]);
 
-  let errorElement = "";
-  if (error) {
-    errorElement = <p className="text-danger">Error: {error?.message}</p>;
-  }
   if (loading) {
     return <Loading></Loading>;
   }
 
-  const agreeBtn = (e) => {
-    const agreeValue = e.target.checked;
-    setAgree(agreeValue);
-  };
+  if (error) {
+    errorElement = <p className="text-danger">Error: {error?.message}</p>;
+  }
 
   return (
-    <section className="container mx-auto px-4">
+    <section style={{ paddingTop: "2rem" }} className="container mx-auto px-4">
       <div className="">
         <div className="h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-md  w-full  bg-slate-200 p-4 rounded-lg shadow-lg">
             <div>
               <div className="user_icon">
-                {/* <img
+                <img
                   className="mx-auto  h-20 w-auto"
                   src="https://i.ibb.co/Ct43kdn/image-removebg-preview-6.png"
                   alt="Workflow"
-                /> */}
+                />
               </div>
               <h2 className="mt-1 font-serif text-center text-3xl font-extrabold text-gray-900">
-                Sign Up
+                Login
               </h2>
             </div>
             <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="rounded-md shadow-sm -space-y-px">
                 <div className="">
-                  <label htmlFor="userName" className="text-slate-700 pt-2">
-                    User Name
-                  </label>
-                  <input
-                    id="userName"
-                    name="userName"
-                    type="text"
-                    autoComplete="userName"
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm "
-                    placeholder="User Name"
-                    {...register("userName", {
-                      required: {
-                        value: true,
-                        message: "Please enter your name",
-                      },
-                      minLength: {
-                        value: 3,
-                        message: "min name characters 3 ",
-                      },
-                    })}
-                  />
-                  <label className="">
-                    {errors.userName?.type === "required" && (
-                      <span className="text-red-500 text-sm pt-2">
-                        {errors.userName.message}
-                      </span>
-                    )}
-                    {errors.userName?.type === "minLength" && (
-                      <span className="text-red-500">
-                        {errors.userName.message}
-                      </span>
-                    )}
-                  </label>
-                </div>
-                <div className="pt-3">
                   <label htmlFor="email" className="text-slate-700 pt-2">
                     Email address
                   </label>
@@ -144,12 +78,12 @@ const SignUp = () => {
                     {...register("email", {
                       required: {
                         value: true,
-                        message: "Please enter your email",
+                        message: "Email is Required",
                       },
                       pattern: {
                         value:
                           /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                        message: "enter your valid email",
+                        message: "Enter Your valid email",
                       },
                     })}
                   />
@@ -215,46 +149,46 @@ const SignUp = () => {
               <div className="block sm:flex items-center justify-between">
                 <div className="flex  items-center">
                   <input
-                    id="agree"
-                    name="agree"
+                    id="remember-me"
+                    name="remember-me"
                     type="checkbox"
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                    onChange={agreeBtn}
                   />
                   <label
-                    htmlFor="agree"
+                    htmlFor="remember-me"
                     className="ml-2 block text-sm text-gray-900"
                   >
-                    agree terms and conditions
+                    Remember me
                   </label>
                 </div>
+
+                <div className="text-sm pt-2 md:p-0">
+                  <Link
+                    href={"/forgot-password"}
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
               </div>
-              {errorElement && errorElement}
               <div>
-                {agree ? (
-                  <button
-                    type="submit"
-                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm rounded-md text-white bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 font-bold hoverBtnSpacing"
-                  >
-                    Sign In
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    disabled
-                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm rounded-md text-white bg-blue-400  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 font-bold"
-                  >
-                    Sign In
-                  </button>
-                )}
+                <p className="text-red-600">{errorElement}</p>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm rounded-md text-white bg-blue-700 hover:bg-blue-600  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 font-bold hoverBtnSpacing"
+                >
+                  Sign In
+                </button>
               </div>
             </form>
             <div className="mt-5">
               <Link
                 className="text-blue-700 hover:text-blue-900"
-                href={"/login"}
+                href={"/signup"}
               >
-                I Have Account ?{" "}
+                create a new account ?{" "}
               </Link>
             </div>
             {/* social login */}
@@ -270,4 +204,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
