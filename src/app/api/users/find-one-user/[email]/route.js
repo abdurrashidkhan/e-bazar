@@ -4,10 +4,12 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
-    // Safely access the email parameter
-    const email = params?.email;
+    // Access the email from dynamic route params
+    const { email } = params;
 
-    // Validate email parameter
+    // console.log("Email received:", email);
+
+    // Validate the email parameter
     if (!email) {
       return NextResponse.json(
         { error: "Email parameter is required" },
@@ -19,19 +21,17 @@ export async function GET(request, { params }) {
     await connectMongodb();
 
     // Find the user by email
-    const user = await users.findOne({ email: email }).exec();
-    if (!user) {
+    const allUserInfo = await users.findOne({ email: email }).exec();
+
+    if (!allUserInfo) {
       return NextResponse.json(
         { error: "User not found" },
         { status: 404 }
       );
     }
 
-    // Check if the user is an admin
-    const isAdmin = user.role === "admin";
-
-    // Return response
-    return NextResponse.json({ isAdmin });
+    // Return the found user
+    return NextResponse.json({ allUserInfo });
   } catch (error) {
     console.error("Server error:", error);
     return NextResponse.json(
