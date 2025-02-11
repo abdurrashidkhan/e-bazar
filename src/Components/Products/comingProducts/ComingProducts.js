@@ -1,62 +1,50 @@
 "use client"
-import { auth } from '@/app/firebase.init';
 import Loading from '@/Components/Common/Loading';
+import findProductsWithSection from '@/database/find/findProductsWithSection/findProductsWithSection';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import Swal from 'sweetalert2';
 import newIcon from '../../../assert/images/coming/new.png';
 const ComingProducts = () => {
-  // console.log(data);
-  const [page, setPage] = useState(1);
   const [products, setProducts] = useState([]);
-  useEffect(() => {
-    fetch(
-      `https://actual-products-of-e-commerce-server-site.vercel.app/coming-products/${page}`
-    )
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, [page]);
-  // card operation
-  const [user, loading, error] = useAuthState(auth);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const saveCard = (data) => {
-    const product = {
-      email: user.email,
-      name: data.name,
-      title: data.title,
-      unit: data.unit,
-      status: data.status,
-      categories: data.categories,
-      price: data.price,
-      brand: data.brand,
-      section: data.section,
-      discount: data.productDiscount,
-      image: data.img,
-      quantity: data.quantity,
-      description: data.description,
-    };
-    fetch(
-      "https://actual-products-of-e-commerce-server-site.vercel.app/card/add-card",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify(product),
+  // Fetch products with error handling
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      setError(null); // Reset error state
+
+      const { findProducts } = await findProductsWithSection("coming-products");
+
+      if (!findProducts || findProducts.length === 0) {
+        throw new Error("No products available at the moment.");
       }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        Swal.fire("Add to card", "", "success");
-      });
+
+      setProducts(findProducts);
+    } catch (err) {
+      console.error("Error fetching products:", err.message || err);
+
+      if (err.response) {
+        setError(
+          `Error: ${err.response.status} - ${err.response.data.message}`
+        );
+      } else if (err.request) {
+        setError("Network error. Please check your connection.");
+      } else {
+        setError(err.message || "An unexpected error occurred.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (!products?.status) {
-    return <Loading></Loading>;
-  }
-  if (loading) {
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  if (isLoading) {
     return <Loading />;
   }
   if (error) {
@@ -66,12 +54,12 @@ const ComingProducts = () => {
   return (
     <div className='container mx-auto px-4 '>
       <div className="flex items-center gap-2">
-        <img src={newIcon} className='w-[40px] h-auto' alt="loading" />
+        <Image src={newIcon} className='w-[40px] h-auto' alt="loading" />
         <h1 className='text-2xl font-semibold text-[#2e3a4b]'>Coming Products</h1>
       </div>
       <div className="py-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 items-center justify-items-center a gap-3">
-          {products?.data?.map((p) => (
+          {products?.map((p) => (
             <div key={p._id}>
               <div
                 className="bg-[#fff] shadow-2xl border border-[#fff] rounded relative hover:border-[#da1a3a79] duration-500 ease-in-out"
