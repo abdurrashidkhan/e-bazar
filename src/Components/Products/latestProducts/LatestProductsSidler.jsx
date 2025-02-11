@@ -1,6 +1,6 @@
 "use client";
 import Loading from "@/Components/Common/Loading";
-import findAllProducts from "@/database/find/allProducts/findAllProducts";
+import findProductsWithSection from "@/database/find/findProductsWithSection/findProductsWithSection";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiFillStar, AiOutlinePlus, AiOutlineStar } from "react-icons/ai";
@@ -20,13 +20,13 @@ export default function LatestProductsSlider() {
       setLoading(true);
       setError(null); // Reset error state
 
-      const { allProducts } = await findAllProducts();
+      const { findProducts } = await findProductsWithSection("latest-products");
 
-      if (!allProducts || allProducts.length === 0) {
+      if (!findProducts || findProducts.length === 0) {
         throw new Error("No products available at the moment.");
       }
 
-      setProducts(allProducts);
+      setProducts(findProducts);
     } catch (err) {
       console.error("Error fetching products:", err.message || err);
 
