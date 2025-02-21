@@ -1,16 +1,18 @@
 "use client";
 import { signOut } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
 
 import { auth } from "@/app/firebase.init";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Loading from "../Common/Loading";
 import "./style.css";
 import TopBar from "./TopBar";
 const Navbar = () => {
+  const pathname = usePathname();
   const [card, setCard] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -20,17 +22,6 @@ const Navbar = () => {
   const openSearch = () => {
     setShowSearch(true);
   };
-
-  // card operation
-  useEffect(() => {
-    fetch(
-      `https://actual-products-of-e-commerce-server-site.vercel.app/cards/${user?.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCard(data?.data);
-      });
-  }, [card, user]);
 
   // calculation
   let productPrice = 0;
@@ -49,6 +40,15 @@ const Navbar = () => {
   const logout = () => {
     signOut(auth);
   };
+  console.log(pathname);
+  const routing = [
+    { path: "/", name: "Home" },
+    { path: "/products", name: "Products" },
+    { path: "/new-arrivals", name: "New Arrivals" },
+    { path: "/today-deals", name: "Today Deals" },
+    { path: "/registry-gifting", name: "Registry & Gifting" },
+    { path: "/support", name: "Support" },
+  ];
   return (
     <nav className="bg-[#fff]  shadow-2xl z-[99999] fixed w-full">
       {/* top bar */}
@@ -79,55 +79,22 @@ const Navbar = () => {
                   tabIndex={0}
                   className="menu menu-compact dropdown-content mt-3 p-2 shadow-2xl bg-base-100 rounded w-52"
                 >
-                  <li>
-                    <Link className="text-slate-600 font-semibold" href="/">
-                      Home
-                    </Link>
-                  </li>
+                  {routing?.map((r) => (
+                    <li key={r?.path}>
+                      <Link
+                        className={`
+                        ${
+                          pathname === r.path
+                            ? "text-[#F96988]"
+                            : "text-slate-600 "
+                        } font-semibold`}
+                        href="/"
+                      >
+                        {r?.name}
+                      </Link>
+                    </li>
+                  ))}
 
-                  <li>
-                    <Link
-                      className="text-slate-600 font-semibold"
-                      href={"/products/page=1"}
-                    >
-                      Products
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className="text-slate-600 font-semibold"
-                      href={`/new-arrivals/page=${1}`}
-                    >
-                      New Arrivals
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className="text-slate-600 font-semibold"
-                      href={`/today-deals/page=1`}
-                    >
-                      Today Deals
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="text-slate-600 font-semibold"
-                      href={"/gift-card/page=1"}
-                    >
-                      Gift Card
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className="text-slate-600 font-semibold"
-                      href={`/registry-gifting/page=${1}`}
-                    >
-                      Registry & Gifting
-                    </Link>
-                  </li>
                   {/* <li>
                     <Link
                       className="text-slate-600 font-semibold"
@@ -147,60 +114,21 @@ const Navbar = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal p-0">
-                <li>
-                  <Link className="text-slate-600 font-semibold" href="">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="text-slate-600 font-semibold"
-                    href={`/products/page=1`}
-                  >
-                    Products
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="text-slate-600 font-semibold"
-                    href={`/new-arrivals/page=${1}`}
-                  >
-                    New Arrivals
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="text-slate-600 font-semibold"
-                    href={`/today-deals/page=1`}
-                  >
-                    Today Deals
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="text-slate-600 font-semibold"
-                    href={"/gift-card/page=1"}
-                  >
-                    Gift Card
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="text-slate-600 font-semibold"
-                    href={`/registry-gifting/page=${1}`}
-                  >
-                    Registry & Gifting
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="text-slate-600 font-semibold"
-                    href={"/support"}
-                  >
-                    Support
-                  </Link>
-                </li>
+                {routing?.map((r) => (
+                  <li key={r?.path}>
+                    <Link
+                      className={`
+                        ${
+                          pathname === r.path
+                            ? "text-[#F96988]"
+                            : "text-slate-600 "
+                        } font-semibold`}
+                      href="/"
+                    >
+                      {r?.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="navbar-end">

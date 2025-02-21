@@ -83,9 +83,12 @@ const ComingProducts = () => {
                   <div className="">
                     <img
                       className="w-full h-[265px] rounded"
-                      src={p?.img}
+                      src={p?.img} // Fallback image
                       alt="loading product"
-                      loading="lazy"
+                    // loading="lazy"
+                    // width={500}
+                    // height={265}
+                    // objectFit="cover"
                     />
                   </div>
                   <hr />

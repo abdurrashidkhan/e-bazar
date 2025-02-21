@@ -13,6 +13,7 @@ const productsSchema = new Schema(
     projectPrice: { type: String, required: true },
     image: { type: String, required: true },
     projectsDescription: { type: String, required: true },
+    categories: { type: String, required: true },
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt fields
