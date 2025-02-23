@@ -1,90 +1,70 @@
-import React from "react";
+"use client"; // Next.js-এ ক্লায়েন্ট সাইড রেন্ডারিং এর জন্য
 
-const SupportContent = () => {
+const FAQPage = () => {
+  // FAQ ডেটা (প্রশ্ন ও উত্তর)
+  const faqs = [
+    {
+      question: "How can I track my order?",
+      answer:
+        "You can track your order using the tracking number provided in your confirmation email.",
+    },
+    {
+      question: "What is your return policy?",
+      answer:
+        "We offer a 30-day return policy. Please ensure the product is in its original condition.",
+    },
+    {
+      question: "How do I contact customer support?",
+      answer:
+        "You can contact our customer support team via email at support@example.com or call us at +123-456-7890.",
+    },
+    {
+      question: "Do you offer international shipping?",
+      answer:
+        "Yes, we offer international shipping. Delivery times may vary depending on your location.",
+    },
+  ];
+
   return (
-    <div className="py-10">
-      <div>
-        {/* services details */}
-        {/* collasps inside services detals  */}
-        <h1 className="text-2xl font-semibold text-[#2e3a4b] pb-8">
-          Most people's questions
-        </h1>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow join-item border border-base-300">
-            <input type="radio" name="my-accordion-4" checked="checked" />
-            <div className="collapse-title text-xl font-medium capitalize">
-              Click to open this one and close others
-            </div>
-            <div className="collapse-content">
-              <p className="text-slate-700 text-base">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Ratione est dignissimos adipisci voluptatum cumque aliquid
-                consequatur facere maiores eos accusantium ducimus voluptate
-                quisquam reiciendis, praesentium ex voluptates sit. Nisi et quod
-                accusamus dolorem officia voluptatibus. Voluptates nemo eligendi
-                dolore, possimus repellat quos pariatur facilis neque cumque,
-                error dolorum tempore! Architecto provident repudiandae id quasi
-                rem reprehenderit. Explicabo, odit facere assumenda eum nulla
-                sequi adipisci nesciunt. Natus eveniet illum, magnam ab fugit
-                nostrum aut ex, aperiam modi aliquid quae velit eum perferendis
-                odit eligendi eaque et ratione iure similique obcaecati autem
-                omnis cum! Blanditiis ullam accusamus assumenda necessitatibus
-                quibusdam earum numquam!
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow join-item border border-base-300">
-            <input type="radio" name="my-accordion-4" />
+    <div className="container mx-auto px-4 py-8">
+      {/* পেজ হেডার */}
+      <h1 className="text-3xl font-bold text-center mb-8">
+        Frequently Asked Questions
+      </h1>
+
+      {/* FAQ একর্ডিয়ন সেকশন */}
+      <div className="space-y-4">
+        {faqs.map((faq, index) => (
+          <div key={index} className="collapse collapse-arrow bg-base-200">
+            {/* একর্ডিয়ন ইনপুট (একবারে শুধুমাত্র একটি ওপেন রাখার জন্য) */}
+            <input
+              type="radio"
+              name="faq-accordion"
+              defaultChecked={index === 0}
+            />
+            {/* প্রশ্ন */}
             <div className="collapse-title text-xl font-medium">
-              Click to open this one and close others
+              {faq.question}
             </div>
+            {/* উত্তর */}
             <div className="collapse-content">
-              <p className="text-slate-700 text-base">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Ratione architecto inventore eos tempore praesentium
-                reprehenderit accusantium mollitia adipisci perspiciatis
-                voluptatum, sint ipsum assumenda temporibus placeat quibusdam
-                est sed vitae consequuntur! Eos, cupiditate, doloremque
-                praesentium eum alias corporis minima aperiam totam ipsum
-                provident sequi aspernatur nesciunt assumenda tempore quisquam
-                aut expedita autem. Inventore ab officia vitae, est quos
-                voluptatibus porro, asperiores tempore molestiae a quas ipsa
-                officiis vero eveniet blanditiis quisquam ea exercitationem
-                aperiam beatae? Voluptatum laudantium, ab, ipsum neque odio
-                perspiciatis praesentium vel ducimus quo velit placeat, possimus
-                eaque repellat. Sapiente quod rerum ullam modi hic, rem culpa
-                iusto inventore.
-              </p>
+              <p>{faq.answer}</p>
             </div>
           </div>
-          <div className="collapse collapse-arrow join-item border border-base-300">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">
-              Click to open this one and close others
-            </div>
-            <div className="collapse-content">
-              <p className="text-slate-700 text-base">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Dolorum obcaecati neque dicta voluptatem. Odit autem corrupti
-                aperiam illo magni, molestias magnam voluptas. Aspernatur
-                commodi, tempore perferendis reiciendis voluptatem eos ratione
-                eius veritatis asperiores necessitatibus sequi corrupti aut
-                dicta nulla ab earum quam eligendi temporibus, doloremque nam
-                expedita nostrum voluptas sint beatae. Error, eaque soluta. Enim
-                harum atque, tenetur distinctio nihil nisi corrupti praesentium,
-                autem quibusdam voluptas quaerat explicabo perspiciatis, qui
-                facilis ipsam veniam numquam eius voluptatum. Officia nam
-                nesciunt eligendi porro quibusdam a eaque in excepturi explicabo
-                nulla voluptate exercitationem consequuntur doloribus provident
-                perspiciatis sit, quasi, voluptatum iusto. Perferendis,
-                molestiae.
-              </p>
-            </div>
-          </div>
-        </div>
+        ))}
+      </div>
+
+      {/* অতিরিক্ত কন্টেন্ট (যদি প্রয়োজন হয়) */}
+      <div className="mt-8 text-center">
+        <p className="text-lg">
+          Still have questions?{" "}
+          <a href="/contact" className="text-[#961929] hover:underline">
+            Contact Us
+          </a>
+        </p>
       </div>
     </div>
   );
 };
 
-export default SupportContent;
+export default FAQPage;
