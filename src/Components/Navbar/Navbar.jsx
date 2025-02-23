@@ -88,7 +88,7 @@ const Navbar = () => {
                             ? "text-[#F96988]"
                             : "text-slate-600 "
                         } font-semibold`}
-                        href="/"
+                        href={r?.path}
                       >
                         {r?.name}
                       </Link>
@@ -109,7 +109,7 @@ const Navbar = () => {
                 href="/"
                 className=" normal-case  text-sm sm:text-xl font-extrabold font-serif text-[#f8426a] "
               >
-                Actual Products
+                e-Bazar
               </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -123,7 +123,7 @@ const Navbar = () => {
                             ? "text-[#F96988]"
                             : "text-slate-600 "
                         } font-semibold`}
-                      href="/"
+                      href={r?.path}
                     >
                       {r?.name}
                     </Link>

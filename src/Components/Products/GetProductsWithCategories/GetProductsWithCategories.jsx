@@ -35,7 +35,7 @@ const GetProductsWithCategories = ({ data }) => {
     <div className="text-center">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-medium text-slate-700 capitalize py-4">
-          {categories} products here
+          {categories}
         </h1>
         {products.length > 7 && (
           <Link href="" className="underline text-[#F8426A] capitalize">
