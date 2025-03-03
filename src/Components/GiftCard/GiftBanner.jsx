@@ -6,7 +6,7 @@ const GiftBanner = () => {
     <div>
       <div className="">
         <div className="container mx-auto px-2 relative" id="gift_banner">
-          <div className="" id="content_center">
+          <div className="px-4 mx-auto" id="content_center">
             <h1 className="text-[#fff] capitalize text-2xl font-mono">
               30<span className="font-serif"> % OFF </span>
             </h1>

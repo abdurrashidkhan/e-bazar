@@ -1,12 +1,13 @@
+"user client"
 import React from "react";
 import GiftBanner from "./GiftBanner";
-import { useParams } from "react-router-dom";
+import { useParams } from 'next/navigation'
 import GiftProducts from "./GiftProducts";
 import GiftCardCategories from "./GiftCardCategories";
 import Review from "../Review/Review";
 import Commitment from "../Commitment/Commitment";
 import Footer from "../Footer/Footer";
-
+import './style.css'
 const GiftCard = () => {
   const { page } = useParams();
   return (
@@ -14,12 +15,7 @@ const GiftCard = () => {
       <div>
         <GiftBanner />
         <GiftCardCategories />
-        <GiftProducts key={page} page={page} />
       </div>
-      {/* footer */}
-      <Review />
-      <Commitment />
-      <Footer />
     </>
   );
 };

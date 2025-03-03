@@ -1,14 +1,18 @@
-"use client"
+"use client";
+import { TfiReload } from "react-icons/tfi";
 import Loading from "@/Components/Common/Loading";
+import GiftCard from "@/Components/GiftCard/GiftCard";
 import findAllNewArrivalsProducts from "@/database/find/allNewArrivalsProducts/findAllNewArrivalsProducts";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { MdOutlineRedeem } from "react-icons/md";
+import { SiNewbalance } from "react-icons/si";
 
 export default function RegistryGifting() {
   const [products, setProducts] = useState([]);
   const [IsLoading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const sectionName = 'registry-gifting'
+  const sectionName = "registry-gifting";
 
   // Fetch products
   const fetchProducts = async (sectionName, page) => {
@@ -31,11 +35,13 @@ export default function RegistryGifting() {
 
   return (
     <section>
-      <div className="container mx-auto px-2 pt-[8rem] pb-10">
+      {/*  */}
+      <GiftCard />
+      <div className="container mx-auto px-2 pt-[1.5rem] pb-10">
         <div className="text-center ">
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-semibold text-slate-600 capitalize py-4">
-              {'New  Arrivals'}
+              {"Registry & Gifting"}
             </h1>
             {products.length > 7 && (
               <Link href="" className="underline text-[#F8426A] capitalize">
@@ -84,7 +90,9 @@ export default function RegistryGifting() {
                       </h1>
                     )}
                     <p className="text-slate-600 text-[15px] font-medium capitalize pb-6">
-                      {p.title.length > 48 ? `${p.title.slice(0, 48)}...` : p.title}
+                      {p.title.length > 48
+                        ? `${p.title.slice(0, 48)}...`
+                        : p.title}
                     </p>
                   </div>
                 </Link>
@@ -119,7 +127,47 @@ export default function RegistryGifting() {
               )}
           </div>
         </div>
+        {/*  Tools for users */}
+        <div className="py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 items-center justify-center gap-5">
+            <div className="text-center">
+              <div className="shadow-2xl border border-slate-50 rounded py-10">
+                <MdOutlineRedeem className="mx-auto mb-2 text-[2rem] text-slate-700" />
+                <Link
+                  href={"/"}
+                  className="font-semibold text-slate-700 underline"
+                >
+                  Redeem Amazon Gift Cards
+                </Link>
+              </div>
+            </div>
+            {/*  */}
+            <div className="text-center">
+              <div className="shadow-2xl border border-slate-50 rounded py-10">
+                <SiNewbalance className="mx-auto mb-2 text-[2rem] text-slate-700" />
+                <Link
+                  href={"/"}
+                  className="font-semibold text-slate-700 underline"
+                >
+                  View Your New Balance
+                </Link>
+              </div>
+            </div>
+            {/*  */}
+            <div className="text-center">
+              <div className="shadow-2xl border border-slate-50 rounded py-10">
+                <TfiReload className="mx-auto mb-2 text-[2rem] text-slate-700" />
+                <Link
+                  href={"/"}
+                  className="font-semibold text-slate-700 underline"
+                >
+                  Set-up Auto-reload
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-  )
+  );
 }
