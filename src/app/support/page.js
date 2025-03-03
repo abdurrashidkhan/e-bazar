@@ -1,11 +1,12 @@
 import SupportContent from "@/Components/Support/SupportContent";
 import SupportTools from "@/Components/Support/SupportTools";
 import "./style.css";
+import SupportBanner from "./SupportBanner";
 
 const Support = () => {
   return (
     <div className="container mx-auto px-2 pb-10 pt-[8rem]">
-      {/* <SupportBanner /> */}
+      <SupportBanner />
       <SupportTools />
       <div id="support_banner_input" className="rounded my-10">
         <div id="support_banner_input_content_center">
