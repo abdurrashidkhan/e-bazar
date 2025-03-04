@@ -1,5 +1,8 @@
 "use client"
+import Commitment from "@/Components/Commitment/Commitment";
 import Loading from "@/Components/Common/Loading";
+import GiftBanner from "@/Components/GiftCard/GiftBanner";
+import Review from "@/Components/Review/Review";
 import findAllNewArrivalsProducts from "@/database/find/allNewArrivalsProducts/findAllNewArrivalsProducts";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -31,11 +34,12 @@ export default function NewArrivals() {
 
   return (
     <section>
-      <div className="container mx-auto px-2 pt-[8rem] pb-10">
+      <GiftBanner />
+      <div className="container mx-auto px-2 py-10">
         <div className="text-center ">
           <div className="flex items-center justify-between">
             <h1 className="text-xl font-semibold text-slate-600 capitalize py-4">
-              {'New  Arrivals'}
+              {'New product arrivals'}
             </h1>
             {products.length > 7 && (
               <Link href="" className="underline text-[#F8426A] capitalize">
@@ -120,6 +124,8 @@ export default function NewArrivals() {
           </div>
         </div>
       </div>
+      <Review />
+      <Commitment />
     </section>
   )
 }

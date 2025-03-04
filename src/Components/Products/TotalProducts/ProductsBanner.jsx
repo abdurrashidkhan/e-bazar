@@ -6,14 +6,14 @@ const ProductsBanner = () => {
     <section>
       <div className="">
         <div className="container mx-auto px-2 relative" id="product_banner">
-          <div className="" id="content_center">
+          <div className="px-2 mx-auto" id="content_center">
             <h1 className="text-[#fff] capitalize text-2xl font-mono">
               30<span className="font-serif"> % OFF </span>
             </h1>
             <h1 className="text-[#fff] pt-2 capitalize text-2xl sm:text-4xl tracking-[1px]">
               special offer for next deals.
             </h1>
-            <p className="text-[#fff] py-4 text-base tracking-[.5px] capitalize">
+            <p className="text-[#fff] py-4 text-base tracking-[.5px] capitalize ">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Doloribus maiores animi assumenda impedit atque illum fugit
               quibusdam quas eius pariatur molestiae illo aspernatur voluptatum
