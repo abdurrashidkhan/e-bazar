@@ -1,9 +1,12 @@
 "use client"
+import Commitment from "@/Components/Commitment/Commitment";
 import Loading from "@/Components/Common/Loading";
+import Review from "@/Components/Review/Review";
 import findAllNewArrivalsProducts from "@/database/find/allNewArrivalsProducts/findAllNewArrivalsProducts";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import "./style.css";
+import TodayBanner from "./todayBanner";
 export default function TodayDeals() {
   const [products, setProducts] = useState([]);
   const [IsLoading, setLoading] = useState(false);
@@ -31,11 +34,14 @@ export default function TodayDeals() {
 
   return (
     <section>
-      <div className="container mx-auto px-2 pt-[8rem] pb-10">
+      {/* banner for today  */}
+      <TodayBanner />
+      {/* end banner */}
+      <div className="container mx-auto px-2 py-10">
         <div className="text-center ">
           <div className="flex items-center justify-between">
-            <h1 className="text-xl font-semibold text-slate-600 capitalize py-4">
-              {'New  Arrivals'}
+            <h1 className="text-xl font-semibold text-slate-600 capitalize py-4 pb-4">
+              {'Todays Best Offers All Products'}
             </h1>
             {products.length > 7 && (
               <Link href="" className="underline text-[#F8426A] capitalize">
@@ -120,6 +126,8 @@ export default function TodayDeals() {
           </div>
         </div>
       </div>
+      <Review />
+      <Commitment />
     </section>
   )
 }

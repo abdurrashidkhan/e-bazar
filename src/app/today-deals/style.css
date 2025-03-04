@@ -1,0 +1,10 @@
+#today_banner {
+  background-image: linear-gradient(to left top, #00645794, #00484bd3),
+    url("../../assert/images/banner/23964.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 70vh;
+  position: relative;
+}
