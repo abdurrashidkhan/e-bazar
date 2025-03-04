@@ -1,4 +1,4 @@
-#support_banner {
+/* #support_banner {
   background-image: linear-gradient(to right bottom, #721efa77, #320081f3),
     url("../../assert/images/banner/8.png");
   background-position: left;
@@ -6,6 +6,17 @@
   background-repeat: no-repeat;
   width: 100%;
   height: 50vh;
+  position: relative;
+} */
+
+#support_banner {
+  background-image: linear-gradient(to right top, #006457, #00484bd0),
+    url("../../assert/images/banner/1.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 60vh;
   position: relative;
 }
 

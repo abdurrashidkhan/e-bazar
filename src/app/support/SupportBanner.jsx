@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 
 const SupportBanner = () => {
   return (
@@ -13,15 +12,15 @@ const SupportBanner = () => {
             Welcome to our Contact Us & Support page, your gateway to seamless
             assistance and personalized care. Whether you have a question, need
             technical support, or simply want to share feedback, we’re here to
-            help—every step of the way. At e-Bazar, we pride
-            ourselves on delivering exceptional service and building lasting
-            relationships with our customers. Our dedicated support team is just
-            a click, call, or message away, ready to provide prompt, friendly,
-            and expert solutions tailored to your needs.
+            help—every step of the way. At e-Bazar, we pride ourselves on
+            delivering exceptional service and building lasting relationships
+            with our customers. Our dedicated support team is just a click,
+            call, or message away, ready to provide prompt, friendly, and expert
+            solutions tailored to your needs.
           </p>
           <Link
             href=""
-            className="text-[#fff] bg-[#2f44b8] text-base sm:text-lg px-6 py-2 rounded shadow-2xl hover:tracking-[1px] duration-700 ease-in-out mt-1 inline-block "
+            className="text-[#fff] bg-[#004d44] text-base sm:text-lg px-6 py-2 rounded shadow-2xl hover:tracking-[1px] duration-700 ease-in-out mt-1 inline-block "
           >
             Support Us
           </Link>

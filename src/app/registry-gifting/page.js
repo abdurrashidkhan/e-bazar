@@ -1,12 +1,14 @@
 "use client";
-import { TfiReload } from "react-icons/tfi";
+import Commitment from "@/Components/Commitment/Commitment";
 import Loading from "@/Components/Common/Loading";
 import GiftCard from "@/Components/GiftCard/GiftCard";
+import Review from "@/Components/Review/Review";
 import findAllNewArrivalsProducts from "@/database/find/allNewArrivalsProducts/findAllNewArrivalsProducts";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MdOutlineRedeem } from "react-icons/md";
 import { SiNewbalance } from "react-icons/si";
+import { TfiReload } from "react-icons/tfi";
 
 export default function RegistryGifting() {
   const [products, setProducts] = useState([]);
@@ -168,6 +170,8 @@ export default function RegistryGifting() {
           </div>
         </div>
       </div>
+      <Review />
+      <Commitment />
     </section>
   );
 }
