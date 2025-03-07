@@ -6,7 +6,7 @@ import FooterInfo from './FooterInfo';
 
 export default function Footer() {
   return (
-    <div className='bg-[#ececec] py-5'>
+    <footer className='bg-[#ececec] py-5'>
       <div className='container mx-auto px-4 mt-[25px]'>
         <div className="grid grid-cols-1 sm:grid-cols-2">
           {/* Left side */}
@@ -60,6 +60,6 @@ export default function Footer() {
       </div>
 
       <FooterInfo />
-    </div>
+    </footer>
   );
 }

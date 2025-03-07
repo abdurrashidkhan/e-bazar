@@ -40,7 +40,7 @@ const Navbar = () => {
   const logout = () => {
     signOut(auth);
   };
-  console.log(pathname);
+  // console.log(pathname);
   const routing = [
     { path: "/", name: "Home" },
     { path: "/products", name: "Products" },
