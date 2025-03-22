@@ -1,7 +1,10 @@
+"use client";
 import { useEffect } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+
+// import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import Loading from "../../../Components/Common/Loading";
 import UseToken from "../../../Components/Hook/UseToken";
@@ -12,9 +15,9 @@ import "./Login.css";
 
 const Login = () => {
   let errorElement;
-  let navigate = useNavigate();
-  const location = useLocation();
-  const form = location.state?.from?.pathname || "/";
+  const router = useRouter();
+
+  const form = router.query.from || "/";
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   // hook
