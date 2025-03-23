@@ -3,10 +3,12 @@ import Commitment from "@/Components/Commitment/Commitment";
 import Loading from "@/Components/Common/Loading";
 import Review from "@/Components/Review/Review";
 import FindOne from "@/database/find/findOne/findOne";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BsShieldCheck, BsTruck } from "react-icons/bs";
 import { CiLocationOn } from "react-icons/ci";
+import { GoDotFill } from "react-icons/go";
 import { TiInputChecked } from "react-icons/ti";
 
 
@@ -163,15 +165,15 @@ export default function FindSingleProduct() {
 
                 {/* Buttons */}
                 <div className="mt-6 flex space-x-4">
-                  <button className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold">Buy Now</button>
-                  <button className="w-full bg-orange-500 text-white py-3 rounded-lg font-semibold">Add to Cart</button>
+                  <Link href="/product/payment" className="w-full bg-blue-500 text-white py-3 rounded text-center font-semibold">Buy Now</Link>
+                  <button className="w-full bg-orange-500 text-white py-3 rounded font-semibold">Add to Cart</button>
                 </div>
               </div>
             </div>
             {/* other info  */}
             <div className="py-10 px-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 items-start gap-5">
-                <div className="w-[100%] h-auto">
+              <div className="sm:flex flex-row items-start gap-5">
+                <div className="w-[100%] h-auto border-r">
                   {/* Specifications */}
                   <div className="mb-12">
                     <h2 className="text-2xl font-bold mb-4">Specifications</h2>
@@ -194,18 +196,12 @@ export default function FindSingleProduct() {
 
                   {/* Product Features */}
                   <div className="mb-12">
-                    <h2 className="text-2xl font-bold mb-4">About this item</h2>
+                    <h2 className="text-2xl font-bold mb-4">About This Item</h2>
                     <ul className="space-y-3">
-                      {[
-                        'Ready for anywhere with thin and light design',
-                        '14-inch HD micro-edge display',
-                        'Intel Celeron N4020 processor',
-                        '4K ready graphics',
-                        '64GB storage + 4GB RAM',
-                      ].map((feature) => (
-                        <li key={feature} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2" />
-                          {feature}
+                      {product?.productFacture?.map((f, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <GoDotFill className="w-[5%] mt-1" />
+                          <p className="w-[100%]">{f?.facture}</p>
                         </li>
                       ))}
                     </ul>
@@ -214,11 +210,7 @@ export default function FindSingleProduct() {
                   {/* Other Sellers */}
                   <div className="border-t pt-8">
                     <h3 className="text-lg font-semibold mb-4">About this item</h3>
-                    READY FOR ANYWHERE – With its thin and light design, 6.5 mm micro-edge bezel display, and 79% screen-to-body ratio, you’ll take this PC anywhere while you see and do more of what you love (1)
-                    MORE SCREEN, MORE FUN – With virtually no bezel encircling the screen, you’ll enjoy every bit of detail on this 14-inch HD (1366 x 768) display (2)
-                    ALL-DAY PERFORMANCE – Tackle your busiest days with the dual-core, Intel Celeron N4020—the perfect processor for performance, power consumption, and value (3)
-                    4K READY – Smoothly stream 4K content and play your favorite next-gen games with Intel UHD Graphics 600 (4) (5)
-                    STORAGE AND MEMORY – An embedded multimedia card provides reliable flash-based, 64 GB of storage while 4 GB of RAM expands your bandwidth and boosts your performance (6)
+                    {product?.description}
                   </div>
 
                 </div>
@@ -265,12 +257,12 @@ export default function FindSingleProduct() {
 
                     {/* Action Buttons */}
                     <div className="space-y-4 mb-8">
-                      <button className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
+                      <button className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition">
                         Add to Cart
                       </button>
-                      <button className="w-full bg-yellow-400 text-black py-3 rounded-lg hover:bg-yellow-500 transition">
+                      <Link href="/product/payment" className="w-full bg-yellow-400 text-black py-3 rounded hover:bg-yellow-500 transition inline-block text-center">
                         Buy Now
-                      </button>
+                      </Link>
                     </div>
 
 
