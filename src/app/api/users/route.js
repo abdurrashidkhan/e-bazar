@@ -23,7 +23,7 @@ export async function PUT(request) {
     accessToken,
     role: "normal",
   };
-  console.log(updateDoc)
+  // console.log(updateDoc)
   await connectMongodb();
   await users.findOneAndUpdate(updateDoc, filter, options);
   return NextResponse.json(

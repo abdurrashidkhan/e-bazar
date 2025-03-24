@@ -8,11 +8,13 @@ const CheckoutPage = () => {
 
   const userAddresses = {
     address1: "123 Main St",
+    totalPrice: 2000,
     address2: "Apt 4B",
     city: "Dhaka",
     state: "NY",
     zip: "10001",
     country: "Bangladesh",
+    status: 'padding'
   }
 
   const paymentReq = async (userAddresses, setLoading) => {
