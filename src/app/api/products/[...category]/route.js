@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   // const { searchParams } = new URL(request.url);
-  console.log(params.category)
+  // console.log(params.category)
   const category = params.category[0];
   const page = params.category[1];
-  console.log(`category = ${category} , page number is = ${page}`,)
+  // console.log(`category = ${category} , page number is = ${page}`,)
 
   // console.log(category, page);
 
@@ -22,7 +22,7 @@ export async function GET(request, { params }) {
     const totalLength = page * 8;
     const calculation = totalLength - 8;
     const productsInfo = result.reverse()?.slice(calculation, totalLength);
-    console.log(productsInfo);
+    // console.log(productsInfo);
 
     // Pagination button logic
     const totalProjectsLength = result.length;

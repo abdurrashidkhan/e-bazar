@@ -1,5 +1,37 @@
+"use client"
+import Loading from "@/Components/Common/Loading";
+import PaymentWithSslc from "@/database/payments/PaymentSslc";
+import { useEffect, useState } from "react";
 
 const CheckoutPage = () => {
+  const [IsLoading, setLoading] = useState(false);
+
+  const userAddresses = {
+    address1: "123 Main St",
+    totalPrice: 2000,
+    address2: "Apt 4B",
+    city: "Dhaka",
+    state: "NY",
+    zip: "10001",
+    country: "Bangladesh",
+    status: 'padding'
+  }
+
+  const paymentReq = async (userAddresses, setLoading) => {
+    setLoading(true);
+    const { paymentResponse } = await PaymentWithSslc(userAddresses, setLoading,)
+    console.log(paymentResponse)
+    setLoading(false);
+
+  }
+  useEffect(() => {
+    paymentReq(userAddresses, setLoading)  // Call the function here
+  }, []);
+
+
+  if (IsLoading) {
+    return <Loading />
+  }
   return (
     <section>
       <div className="container mx-auto px-2 pt-[8rem] pb-10">
