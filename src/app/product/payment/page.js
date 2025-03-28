@@ -1,11 +1,12 @@
 "use client"
 import Loading from "@/Components/Common/Loading";
 import PaymentWithSslc from "@/database/payments/PaymentSslc";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const CheckoutPage = () => {
   const [IsLoading, setLoading] = useState(false);
-
+  const [gatewayUrl, setGatewayUrl] = useState('');
   const userAddresses = {
     address1: "123 Main St",
     totalPrice: 2000,
@@ -14,18 +15,20 @@ const CheckoutPage = () => {
     state: "NY",
     zip: "10001",
     country: "Bangladesh",
-    status: 'padding'
+    status: 'padding',
+    email: 'raw@gmail.com'
   }
 
-  const paymentReq = async (userAddresses, setLoading) => {
+  const paymentReq = async (userAddresses) => {
     setLoading(true);
-    const { paymentResponse } = await PaymentWithSslc(userAddresses, setLoading,)
-    console.log(paymentResponse)
+    const { gatewayUrl } = await PaymentWithSslc(userAddresses,)
+    setGatewayUrl(gatewayUrl)
+
     setLoading(false);
 
   }
   useEffect(() => {
-    paymentReq(userAddresses, setLoading)  // Call the function here
+    paymentReq(userAddresses)
   }, []);
 
 
@@ -42,12 +45,22 @@ const CheckoutPage = () => {
             {/* Payment Method */}
             <div className="w-[100%]">
               <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                <h2 className="text-lg font-semibold mb-2">Choose a Payment Method</h2>
-                <p className="text-sm text-gray-600">Pay $67.52/month for 12 months plus $41 tax (total $810.23).</p>
-                <div className="border p-3 mt-3 rounded-md">
-                  <button className="bg-yellow-500 text-white py-2 px-4 rounded w-full">
-                    Use this Payment Method
-                  </button>
+                {/* Order Summary */}
+                <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+                  <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
+                  <div className="text-gray-600">
+                    <p>Selected Items: 03<span className="float-right">$929.99</span></p>
+                    <p>Shipping & Handling: <span className="float-right">$41.72</span></p>
+                    <p>Total before tax: <span className="float-right">$471.72</span></p>
+                    <p>Import Fees Deposit: <span className="float-right">$62.51</span></p>
+                    <p className="font-semibold mt-2">Order Total: <span className="float-right">$810.23</span></p>
+                  </div>
+
+                </div>
+                <div className="text-center">
+                  <Link href={`${gatewayUrl}`} className="bg-yellow-500 text-white py-2 px-4 rounded w-full text-center">
+                    Payment Now
+                  </Link>
                 </div>
               </div>
 
@@ -67,23 +80,26 @@ const CheckoutPage = () => {
               </div>
             </div>
             <div className="w-[40%]">
-              {/* Order Summary */}
+              {/*Manage  Order  */}
               <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-                <h2 className="text-lg font-semibold mb-2">Order Summary</h2>
+                <h2 className="text-lg font-semibold mb-2">Manage Order </h2>
                 <div className="text-gray-600">
-                  <p>Items: <span className="float-right">$929.99</span></p>
-                  <p>Shipping & Handling: <span className="float-right">$41.72</span></p>
-                  <p>Total before tax: <span className="float-right">$471.72</span></p>
-                  <p>Import Fees Deposit: <span className="float-right">$62.51</span></p>
-                  <p className="font-semibold mt-2">Order Total: <span className="float-right">$810.23</span></p>
+                  <p>Items: 0 <span className="float-right">$929.99</span></p>
+                  <p>Items: 1 <span className="float-right">$41.72</span></p>
+                  <p>Items: 2 <span className="float-right">$471.72</span></p>
+                  <p>Items: 3 <span className="float-right">$471.72</span></p>
+
+                  <p className="font-semibold mt-2">Order Total Price <span className="float-right">00.00</span></p>
+                  <Link href={'/user/address/update'} className="mt-2 text-blue-600 hover:underline">Manage All Order</Link>
                 </div>
               </div>
+              {/*  */}
               <div className="bg-white p-4 rounded-lg shadow-md mb-6">
                 <h2 className="text-lg font-semibold mb-2">Shipping Address</h2>
                 <p className="text-gray-600">Rashid Khan</p>
                 <p className="text-gray-600">Dhaka, Bangladesh</p>
                 <p className="text-gray-600">Dhaka, 4/5 7733</p>
-                <button className="mt-2 text-blue-600 hover:underline">Change</button>
+                <Link href={'/user/address/update'} className="mt-2 text-blue-600 hover:underline">Change</Link>
               </div>
             </div>
           </div>
