@@ -1,5 +1,4 @@
-import Swal from "sweetalert2";
-export default async function PaymentWithSslc(insertData, seIsLoading) {
+export default async function PaymentWithSslc(insertData) {
   console.log(insertData)
   try {
     // C:\projects\digital-marketing-agency\src\app\api\merge-marketing\v1\users\insert-user\[email].js
@@ -9,15 +8,15 @@ export default async function PaymentWithSslc(insertData, seIsLoading) {
       body: JSON.stringify(insertData),
     });
     // }
-    if (!res.ok) {
-      Swal.fire("Failed", "Try again late", "error");
-      seIsLoading(false);
-    }
-    if (res.ok) {
-      seIsLoading(false);
+    // if (!res.ok) {
+    //   Swal.fire("Failed", "Try again late", "error");
+    //   seIsLoading(false);
+    // }
+    // if (res.ok) {
+    //   seIsLoading(false);
 
-      Swal.fire("Done", "Event annulment submitted", "success");
-    }
+    //   Swal.fire("Done", "Event annulment submitted", "success");
+    // }
     return res.json();
   } catch (error) {
     console.log(error);
