@@ -45,13 +45,12 @@ export async function POST(request) {
         "Content-Type": "application/x-www-form-urlencoded"
       }
     })
-    console.log(isResponse?.data?.GatewayPageURL)
+    // insert payment data insert into the database
 
 
+    // anther route hit for the verify payment
 
-
-
-
+    // console.log(isResponse?.data?.GatewayPageURL)
     return NextResponse.json({
       status: 200,
       message: "payment init",
