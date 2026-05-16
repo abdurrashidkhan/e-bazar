@@ -34,7 +34,6 @@ const DashBoard = () => {
                 <BsCaretRight className='text-2xl  text-red-700' />
               </label>
               {/* <Outlet></Outlet> */}
-              <h1>out late</h1>
             </div>
             <div className='drawer-side mt-[5rem] md:mt-0'>
               <label htmlFor='my-drawer-2' className='drawer-overlay'></label>
