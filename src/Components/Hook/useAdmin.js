@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const useAdmin = (user) => {
   const [admin, setAdmin] = useState(false);
@@ -8,11 +8,14 @@ const useAdmin = (user) => {
     const email = user?.email;
     if (email) {
       axios
-        .get(`https://actual-products-of-e-commerce-server-site.vercel.app/user/admin/${user?.email}`, {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        .get(
+          `https://actual-products-of-e-commerce-server-site.vercel.app/user/admin/${user?.email}`,
+          {
+            headers: {
+              authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
           },
-        })
+        )
         .then((data) => {
           setAdmin(data.data);
           setAdminLoading(false);

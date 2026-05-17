@@ -1,11 +1,11 @@
-import { signOut } from "firebase/auth";
+import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
-import { useAuthState } from "react-firebase-hooks/auth";
-import Swal from "sweetalert2";
-import Loading from "../../../Components/Common/Loading";
-import useAdmin from "../../../Components/Hook/useAdmin";
-import auth from "../../../firebase-init";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import Swal from 'sweetalert2';
+import { auth } from '@/app/firebase.init';
+import useAdmin from '@/Components/Hook/useAdmin';
+import Loading from '@/Components/Common/Loading';
 
 const AdminCheck = ({ children }) => {
   const [user, loading] = useAuthState(auth);
@@ -20,7 +20,7 @@ const AdminCheck = ({ children }) => {
       handled.current = true;
 
       if (!user) {
-        await Swal.fire("You are not admin", "", "info");
+        await Swal.fire('You are not admin', '', 'info');
         router.push('/login');
         return;
       }
@@ -28,7 +28,7 @@ const AdminCheck = ({ children }) => {
       if (!admin) {
         await signOut(auth);
         localStorage.removeItem('token');
-        await Swal.fire("You are not admin", "", "info");
+        await Swal.fire('You are not admin', '', 'info');
         router.push('/login');
       }
     };
