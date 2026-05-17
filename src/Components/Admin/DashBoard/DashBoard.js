@@ -40,7 +40,7 @@ const DashBoard = () => {
               <ul className='menu p-4 w-80 min-h-full  bg-[#fff] text-base-content pt-20'>
                 {/* <!-- Sidebar content here --> */}
                 <li className='py-1 text-base rounded '>
-                  <Link href={'/actual/admin'} className='py-2 flex items-center'>
+                  <Link href={'/authentication/dashboard/profile'} className='py-2 flex items-center'>
                     <span>
                       <SiGoogleanalytics className=' text-slate-700' />
                     </span>
