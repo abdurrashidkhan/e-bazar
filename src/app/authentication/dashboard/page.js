@@ -1,31 +1,15 @@
-// welcome to dashboard
-'use client';
-
 import AdminCheck from '@/app/Auth/Admin/AdminCheck';
-import { auth } from '@/app/firebase.init';
-import Loading from '@/Components/Common/Loading';
-import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 
-// import CheckingUser from '@/components/Admin/checkingUser';
-// import { auth } from '../firebase.init';
-// import Loading from '../loading';
-
-export default function Dashboard() {
-  const [user, loading, error] = useAuthState(auth);
-  const [signOut, outLoading, OutError] = useSignOut(auth);
-  // const checkingUsers = AdminCheck();
-  let isAdmin;
-  if (loading || outLoading) {
-    return <Loading></Loading>;
-  } else {
-    // isAdmin = CheckAdmin()
-  }
-  if (error || OutError) {
-    console.log(error?.message);
-  }
+const Dashboard = () => {
   return (
-    <div className=''>
-      <h1>Hello Dashboard</h1>
-    </div>
+    <AdminCheck>
+      <div>
+        {/* এইখানের সব কিছু children হিসেবে AdminCheck এ যাবে */}
+        <h1>Welcome Admin!</h1>
+        <p>This is your secret dashboard.</p>
+      </div>
+    </AdminCheck>
   );
-}
+};
+
+export default Dashboard;

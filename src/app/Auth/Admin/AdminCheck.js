@@ -1,50 +1,25 @@
-import { signOut } from 'firebase/auth';
-import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import Swal from 'sweetalert2';
-import { auth } from '@/app/firebase.init';
-import useAdmin from '@/Components/Hook/useAdmin';
-import Loading from '@/Components/Common/Loading';
+'use client';
 
-const AdminCheck = ({ children }) => {
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/app/firebase.init';
+
+export default function AdminCheck({ children }) {
   const [user, loading] = useAuthState(auth);
-  const [admin, adminLoading] = useAdmin(user);
   const router = useRouter();
-  const handled = useRef(false);
 
   useEffect(() => {
-    if (handled.current || loading || adminLoading) return;
+    // লোডিং শেষ হওয়ার পর যদি ইউজার না থাকে বা অ্যাডমিন না হয়
+    if (!loading && !user) {
+      router.push('/authentication/login'); // রিডাইরেক্ট করুন
+    }
+  }, [user, loading, router]);
 
-    const handleRedirect = async () => {
-      handled.current = true;
-
-      if (!user) {
-        await Swal.fire('You are not admin', '', 'info');
-        router.push('/login');
-        return;
-      }
-
-      if (!admin) {
-        await signOut(auth);
-        localStorage.removeItem('token');
-        await Swal.fire('You are not admin', '', 'info');
-        router.push('/login');
-      }
-    };
-
-    handleRedirect();
-  }, [user, admin, loading, adminLoading, router]);
-
-  if (loading || adminLoading) {
-    return <Loading />;
+  if (loading) {
+    return <div className='flex justify-center items-center h-screen'>Loading...</div>;
   }
 
-  if (user && admin) {
-    return children;
-  }
-
-  return <Loading />;
-};
-
-export default AdminCheck;
+  // ইউজার থাকলে চিলড্রেন রেন্ডার হবে
+  return user ? <>{children}</> : null;
+}
