@@ -63,10 +63,10 @@ const DashboardHome = () => {
         {/* Dynamic Professional Content */}
         <div className='space-y-8 animate-fadeIn'>
           {/* Welcome Banner Card */}
-          <div className='bg-gradient-to-r from-rose-500 to-pink-600 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden'>
-            {/* Background decorative icon */}
+          <div className='bg-gradient-to-r from-blue-900 to-indigo-800 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden'>
+            {/* Background decorative icon - আরও বেশি ব্যালেন্সড লুকের জন্য opacity কমানো হয়েছে */}
             <div className='absolute right-0 bottom-0 opacity-10 translate-x-10 translate-y-10 pointer-events-none'>
-              <HiOutlineCube size={300} />
+              <HiOutlineShoppingCart size={300} />
             </div>
 
             <div className='relative z-10 max-w-xl'>
@@ -76,7 +76,8 @@ const DashboardHome = () => {
               <h1 className='text-2xl sm:text-4xl font-black mt-3 tracking-tight'>
                 Welcome Back, {user?.displayName || 'Admin'}! 👋
               </h1>
-              <p className='text-rose-100 mt-2 text-sm sm:text-base font-medium leading-relaxed'>
+              {/* এখানে text-rose-100 পরিবর্তন করে indigo-100 দেওয়া হয়েছে যেন নীল থিমের সাথে মিলে যায় */}
+              <p className='text-indigo-100 mt-2 text-sm sm:text-base font-medium leading-relaxed'>
                 Here is what's happening with your store today. Monitor sales, manage your
                 inventory, and check customer reviews all from one interactive dashboard.
               </p>

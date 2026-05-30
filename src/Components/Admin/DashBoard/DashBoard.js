@@ -13,6 +13,7 @@ import {
   HiOutlineFolderAdd,
   HiOutlineCog,
   HiOutlineLogout,
+  HiOutlineUserCircle,
 } from 'react-icons/hi';
 import { SiGoogleanalytics } from 'react-icons/si';
 import { MdOutlineRateReview } from 'react-icons/md';
@@ -57,6 +58,13 @@ export default function DashBoard({ children }) {
       name: 'Reviews',
       href: '/authentication/dashboard/reviews',
       icon: <MdOutlineRateReview className='text-lg text-amber-500' />,
+    },
+    {
+      name: 'Profile',
+      href: '/authentication/dashboard/profile',
+      icon: (
+        <HiOutlineUserCircle className='text-lg text-purple-600 group-hover:text-[#f8426a] transition-colors' />
+      ),
     },
     {
       name: 'Settings',
