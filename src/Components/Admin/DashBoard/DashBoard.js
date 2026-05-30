@@ -78,7 +78,7 @@ export default function DashBoard({ children }) {
   }
 
   return (
-    <div className='flex h-screen bg-gray-100 font-sans' suppressHydrationWarning>
+    <div className='flex h-screen bg-gray-100 font-sans pt-10' suppressHydrationWarning>
       {/* Sidebar Navigation */}
       <aside
         className={`bg-white shadow-xl h-full flex flex-col justify-between transition-all duration-300 z-50 ${
