@@ -1,113 +1,174 @@
 'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
-import { BsCaretRight } from 'react-icons/bs';
-import { FaBlog } from 'react-icons/fa';
-import { HiViewGridAdd } from 'react-icons/hi';
-import { MdManageAccounts, MdOutlineManageHistory, MdPermDataSetting } from 'react-icons/md';
+import { usePathname } from 'next/navigation';
+
+// React Icons
+import {
+  HiMenuAlt2,
+  HiOutlineCube,
+  HiOutlineShoppingCart,
+  HiOutlineUsers,
+  HiOutlineFolderAdd,
+  HiOutlineCog,
+  HiOutlineLogout,
+} from 'react-icons/hi';
 import { SiGoogleanalytics } from 'react-icons/si';
-import { VscSettings } from 'react-icons/vsc';
-import Footer from '../../Footer/Footer';
-import './style.css';
+import { MdOutlineRateReview } from 'react-icons/md';
 
-const DashBoard = () => {
-  const [open, setOpen] = useState(false);
-  console.log(open);
-  return (
-    <>
-      <section className=' bg-[#e7eafa] pt-14'>
-        <div className='container mx-auto '>
-          <div className='drawer lg:drawer-open'>
-            <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-            <div
-              className='drawer-content flex flex-col items-center justify-center relative h-auto overflow-auto'
-              id='dashboard_content'
-            >
-              {/* Page content here */}
-              <label
-                onClick={() => setOpen(false)}
-                htmlFor='my-drawer-2'
-                className='bg-[#fff] shadow-2xl drawer-button lg:hidden z-[11111] rounded-none rounded-r p-2 tooltip tooltip-right'
-                id='dashboard_menu'
-                data-tip='Open Menu'
-              >
-                <BsCaretRight className='text-2xl  text-red-700' />
-              </label>
-              {/* <Outlet></Outlet> */}
-            </div>
-            <div className='drawer-side mt-[5rem] md:mt-0'>
-              <label htmlFor='my-drawer-2' className='drawer-overlay'></label>
-              <ul className='menu p-4 w-80 min-h-full  bg-[#fff] text-base-content pt-20'>
-                {/* <!-- Sidebar content here --> */}
-                <li className='py-1 text-base rounded '>
-                  <Link href={'/authentication/dashboard/profile'} className='py-2 flex items-center'>
-                    <span>
-                      <SiGoogleanalytics className=' text-slate-700' />
-                    </span>
-                    <span>Profile</span>
-                  </Link>
-                </li>
-                <li className='py-1 text-base rounded '>
-                  <Link href={'/actual/admin/upload-product'} className='py-2 flex items-center'>
-                    <span>
-                      <HiViewGridAdd className=' text-slate-700' />
-                    </span>
-                    <span>Add Product</span>
-                  </Link>
-                </li>
-                {/* <li className='py-1 text-lg rounded'><Link className='py-2 ' href={'/actual/admin/add-skill'}>Add Skill</Link></li>
-							<li className='py-1 text-lg rounded'><Link className='py-2 capitalize' href={'/actual/admin/upload-service'}>Add services</Link></li> */}
+export default function DashBoard({ children }) {
+  const [isOpen, setIsOpen] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
 
-                <li className='py-1 text-base rounded '>
-                  <Link href={'/actual/admin/add-blog'} className='py-2 flex items-center'>
-                    <span>
-                      <FaBlog className=' text-slate-700' />
-                    </span>
-                    <span>Add Blog</span>
-                  </Link>
-                </li>
-                {/* <li className='py-1 text-lg rounded'><Link className='py-2 ' href={'/actual/admin/manage-services'}>Manage Services</Link></li> */}
-                <li className='py-1 text-base rounded '>
-                  <Link href={'/actual/admin/manage-products'} className='py-2 flex items-center'>
-                    <span>
-                      <MdOutlineManageHistory className=' text-slate-700' />
-                    </span>
-                    <span>Manage Products</span>
-                  </Link>
-                </li>
-                <li className='py-1 text-base rounded '>
-                  <Link href={'/actual/admin/manage-users'} className='py-2 flex items-center'>
-                    <span>
-                      <MdManageAccounts className=' text-slate-700 text-xl' />
-                    </span>
-                    <span>Manage Users</span>
-                  </Link>
-                </li>
-                {/* <li className='py-1 text-lg rounded'><Link className='py-2 ' href={'/actual/admin/manage-skills'}>Manage Skills</Link></li> */}
-                <li className='py-1 text-base rounded '>
-                  <Link href={'/actual/admin/manage-reviews'} className='py-2 flex items-center'>
-                    <span>
-                      <VscSettings className=' text-slate-700 text-xl' />
-                    </span>
-                    <span>Manage Reviews</span>
-                  </Link>
-                </li>
-                <li className='py-1 text-base rounded '>
-                  <Link href={'/actual/admin/manage-blogs'} className='py-2 flex items-center'>
-                    <span>
-                      <MdPermDataSetting className=' text-slate-700 text-xl' />
-                    </span>
-                    <span>Manage Blogs</span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+  // ✅ Hydration safe guard hook
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const menuItems = [
+    {
+      name: 'Analytics',
+      href: '/authentication/dashboard/analytics',
+      icon: <SiGoogleanalytics className='text-lg text-blue-500' />,
+    },
+    {
+      name: 'Orders',
+      href: '/authentication/dashboard/orders',
+      icon: <HiOutlineShoppingCart className='text-lg text-orange-500' />,
+    },
+    {
+      name: 'Products',
+      href: '/authentication/dashboard/products',
+      icon: <HiOutlineCube className='text-lg text-purple-500' />,
+    },
+    {
+      name: 'Add Item',
+      href: '/authentication/dashboard/add-item',
+      icon: <HiOutlineFolderAdd className='text-lg text-green-500' />,
+    },
+    {
+      name: 'Customers',
+      href: '/authentication/dashboard/customers',
+      icon: <HiOutlineUsers className='text-lg text-teal-500' />,
+    },
+    {
+      name: 'Reviews',
+      href: '/authentication/dashboard/reviews',
+      icon: <MdOutlineRateReview className='text-lg text-amber-500' />,
+    },
+    {
+      name: 'Settings',
+      href: '/authentication/dashboard/settings',
+      icon: <HiOutlineCog className='text-lg text-gray-500' />,
+    },
+  ];
+
+  // ✅ Fixed: সার্ভার এবং ক্লায়েন্টের প্রাথমিক স্ট্রাকচার হুবহু এক রাখার জন্য এই লোডিং প্লেসহোল্ডার
+  if (!isMounted) {
+    return (
+      <div className='flex justify-center items-center h-screen bg-gray-100'>
+        <div className='flex flex-col items-center gap-2'>
+          <div className='animate-spin rounded-full h-10 w-10 border-b-2 border-[#f8426a]'></div>
+          <p className='text-sm font-semibold text-gray-500'>Loading Dashboard...</p>
         </div>
-      </section>
-      <Footer />
-    </>
-  );
-};
+      </div>
+    );
+  }
 
-export default DashBoard;
+  return (
+    <div className='flex h-screen bg-gray-100 font-sans' suppressHydrationWarning>
+      {/* Sidebar Navigation */}
+      <aside
+        className={`bg-white shadow-xl h-full flex flex-col justify-between transition-all duration-300 z-50 ${
+          isOpen ? 'w-64' : 'w-0 -translate-x-full md:w-20 md:translate-x-0'
+        } overflow-hidden`}
+      >
+        <div>
+          {/* Dashboard Header */}
+          <div className='h-20 flex items-center justify-center border-b border-gray-100 px-6'>
+            <h2
+              className={`text-xl font-black tracking-wider text-[#f8426a] transition-opacity ${!isOpen && 'md:hidden'}`}
+            >
+              e-Bazar{' '}
+              <span className='text-xs font-normal text-gray-400 block -mt-1'>ADMIN PANEL</span>
+            </h2>
+            {!isOpen && (
+              <span className='hidden md:block text-xl font-black text-[#f8426a]'>eB</span>
+            )}
+          </div>
+
+          {/* Navigation Links */}
+          <nav className='p-4 space-y-1.5'>
+            {menuItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-3.5 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-rose-50 to-pink-50 text-[#f8426a] shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                  }`}
+                >
+                  <div className={`transition-transform duration-200 ${isActive && 'scale-110'}`}>
+                    {item.icon}
+                  </div>
+                  <span
+                    className={`text-sm tracking-wide transition-opacity duration-200 ${!isOpen && 'md:hidden'}`}
+                  >
+                    {item.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Sidebar Footer */}
+        <div className='p-4 border-t border-gray-100'>
+          <Link
+            href='/'
+            className='flex items-center gap-3.5 px-4 py-3 rounded-xl font-medium text-gray-500 hover:bg-rose-50 hover:text-rose-600 transition-colors'
+          >
+            <HiOutlineLogout className='text-lg' />
+            <span className={`text-sm tracking-wide ${!isOpen && 'md:hidden'}`}>Back to Shop</span>
+          </Link>
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <div className='flex-1 flex flex-col overflow-hidden' suppressHydrationWarning>
+        {/* Navbar / Header */}
+        <header className='bg-white h-20 px-6 shadow-sm flex items-center justify-between border-b border-gray-200'>
+          <div className='flex items-center gap-4'>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className='p-2 hover:bg-gray-55 rounded-xl border border-gray-200 text-gray-600 transition-colors'
+              aria-label='Toggle Sidebar'
+            >
+              <HiMenuAlt2 size={20} />
+            </button>
+            <h1 className='text-lg font-bold text-gray-800 capitalize hidden sm:block'>
+              {pathname.split('/').pop()?.replace('-', ' ')} Overview
+            </h1>
+          </div>
+
+          <div className='flex items-center gap-2'>
+            <span className='flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse'></span>
+            <span className='text-xs font-semibold text-gray-500 uppercase tracking-wider'>
+              Live Server
+            </span>
+          </div>
+        </header>
+
+        {/* Viewport content */}
+        <main className='flex-1 p-6 overflow-y-auto bg-gray-50/50'>
+          <div className='max-w-7xl mx-auto'>{children}</div>
+        </main>
+      </div>
+    </div>
+  );
+}

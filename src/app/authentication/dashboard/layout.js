@@ -1,11 +1,7 @@
-// src/app/authentication/layout.js বা dashboard/layout.js
+// ./src/app/authentication/dashboard/layout.js
 
-import AdminCheck from '@/app/Auth/Admin/AdminCheck';
+import DashBoard from '@/Components/Admin/DashBoard/DashBoard';
 
 export default function DashboardLayout({ children }) {
-  return (
-    <AdminCheck>
-      <section className=''>{children}</section>
-    </AdminCheck>
-  );
+  return <main className=''>{children}</main>;
 }

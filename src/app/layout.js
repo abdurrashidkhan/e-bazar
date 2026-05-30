@@ -12,6 +12,7 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
+
 export const metadata = {
   title: 'e-bazar - Online Shopping for Electronics, Fashion, Home & More',
   description:
@@ -30,8 +31,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navbar></Navbar>
+      {/* ✅ Pro-Tip: Adding suppressHydrationWarning here stops browser extensions 
+        from breaking the application structure due to injected attributes.
+      */}
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Navbar />
         {children}
         <Footer />
       </body>
