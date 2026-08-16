@@ -1,31 +1,32 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/app/firebase.init';
 import AdminCheck from '@/app/Auth/Admin/AdminCheck';
+import { auth } from '@/app/firebase.init';
 import DashBoard from '@/Components/Admin/DashBoard/DashBoard';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-// ✅ Fixed: 'Hi' icons are now correctly imported from the 'hi' sub-module
-import {
-  HiOutlineShoppingCart,
-  HiOutlineCube,
-  HiOutlineUsers,
-  HiOutlineTrendingUp,
-} from 'react-icons/hi';
-import { HiOutlineArrowTrendingUp } from 'react-icons/hi2';
+import { HiOutlineCube, HiOutlineShoppingCart, HiOutlineUsers } from 'react-icons/hi';
+import { HiOutlineArrowTrendingUp, HiOutlineCalendarDays } from 'react-icons/hi2';
 
 const DashboardHome = () => {
   const [user] = useAuthState(auth);
   const [isMounted, setIsMounted] = useState(false);
+  const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
     setIsMounted(true);
+    // আজকের তারিখ সেট করা (e.g., August 15, 2024)
+    const date = new Date().toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    setCurrentDate(date);
   }, []);
 
   if (!isMounted) return null;
 
-  // Dashboard Home Screen Stats Data
   const stats = [
     {
       id: 1,
@@ -33,6 +34,7 @@ const DashboardHome = () => {
       value: '$12,450',
       icon: <HiOutlineArrowTrendingUp className='text-2xl text-emerald-600' />,
       bg: 'bg-emerald-50',
+      borderColor: 'border-emerald-100',
     },
     {
       id: 2,
@@ -40,6 +42,7 @@ const DashboardHome = () => {
       value: '25 Pending',
       icon: <HiOutlineShoppingCart className='text-2xl text-orange-600' />,
       bg: 'bg-orange-50',
+      borderColor: 'border-orange-100',
     },
     {
       id: 3,
@@ -47,6 +50,7 @@ const DashboardHome = () => {
       value: '142 Items',
       icon: <HiOutlineCube className='text-2xl text-purple-600' />,
       bg: 'bg-purple-50',
+      borderColor: 'border-purple-100',
     },
     {
       id: 4,
@@ -54,69 +58,87 @@ const DashboardHome = () => {
       value: '48 Users',
       icon: <HiOutlineUsers className='text-2xl text-blue-600' />,
       bg: 'bg-blue-50',
+      borderColor: 'border-blue-100',
     },
   ];
 
   return (
     <AdminCheck>
       <DashBoard>
-        {/* Dynamic Professional Content */}
-        <div className='space-y-8 animate-fadeIn'>
-          {/* Welcome Banner Card */}
-          <div className='bg-gradient-to-r from-blue-900 to-indigo-800 rounded-3xl p-6 sm:p-8 text-white shadow-lg relative overflow-hidden'>
-            {/* Background decorative icon - আরও বেশি ব্যালেন্সড লুকের জন্য opacity কমানো হয়েছে */}
-            <div className='absolute right-0 bottom-0 opacity-10 translate-x-10 translate-y-10 pointer-events-none'>
-              <HiOutlineShoppingCart size={300} />
+        <div className='space-y-8 animate-in fade-in duration-700'>
+          {/* Top Header - Greeting & Date */}
+          <div className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
+            <div>
+              <h2 className='text-2xl font-bold text-gray-800'>Dashboard Overview</h2>
+              <p className='text-sm text-gray-500'>Welcome back to your store management.</p>
             </div>
+            <div className='flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100 text-gray-600'>
+              <HiOutlineCalendarDays className='text-indigo-500' />
+              <span className='text-sm font-medium'>{currentDate}</span>
+            </div>
+          </div>
 
-            <div className='relative z-10 max-w-xl'>
-              <span className='bg-white/20 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'>
-                Control Center
-              </span>
-              <h1 className='text-2xl sm:text-4xl font-black mt-3 tracking-tight'>
-                Welcome Back, {user?.displayName || 'Admin'}! 👋
+          {/* Main Welcome Banner */}
+          <div className='group relative overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-900 to-indigo-800 rounded-[2rem] p-8 text-white shadow-xl transition-all duration-300'>
+            {/* Background Icon Decoration */}
+            <HiOutlineShoppingCart
+              className='absolute -right-10 -bottom-10 text-white/5 rotate-12 group-hover:rotate-6 transition-transform duration-700'
+              size={320}
+            />
+
+            <div className='relative z-10 space-y-4'>
+              <div className='inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20'>
+                <span className='w-2 h-2 bg-emerald-400 rounded-full animate-pulse'></span>
+                <span className='text-[10px] font-bold uppercase tracking-[0.2em]'>
+                  System Live
+                </span>
+              </div>
+
+              <h1 className='text-3xl md:text-5xl font-extrabold tracking-tight'>
+                Hello, {user?.displayName?.split(' ')[0] || 'Admin'}! 👋
               </h1>
-              {/* এখানে text-rose-100 পরিবর্তন করে indigo-100 দেওয়া হয়েছে যেন নীল থিমের সাথে মিলে যায় */}
-              <p className='text-indigo-100 mt-2 text-sm sm:text-base font-medium leading-relaxed'>
-                Here is what's happening with your store today. Monitor sales, manage your
-                inventory, and check customer reviews all from one interactive dashboard.
+
+              <p className='max-w-xl text-blue-100/80 text-sm md:text-lg leading-relaxed font-light'>
+                Your store has seen a{' '}
+                <span className='text-emerald-400 font-bold'>12% increase</span> in sales today.
+                Everything looks great! Check your latest orders below.
               </p>
             </div>
           </div>
 
-          {/* Overview Analytics Cards */}
-          <div>
-            <h3 className='text-base font-bold text-gray-800 mb-4 tracking-wide uppercase'>
-              Quick Store Overview
-            </h3>
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5'>
-              {stats.map((stat) => (
-                <div
-                  key={stat.id}
-                  className='bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between hover:shadow-md transition-shadow duration-200'
-                >
-                  <div className='space-y-1'>
-                    <p className='text-xs font-semibold text-gray-400 uppercase tracking-wider'>
-                      {stat.name}
-                    </p>
-                    <p className='text-xl font-extrabold text-gray-800'>{stat.value}</p>
-                  </div>
-                  <div className={`p-3.5 rounded-xl ${stat.bg}`}>{stat.icon}</div>
+          {/* Analytics Cards Grid */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+            {stats.map((stat) => (
+              <div
+                key={stat.id}
+                className={`bg-white p-6 rounded-2xl border ${stat.borderColor} shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col gap-4`}
+              >
+                <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center`}>
+                  {stat.icon}
                 </div>
-              ))}
-            </div>
+                <div>
+                  <p className='text-xs font-bold text-gray-400 uppercase tracking-widest mb-1'>
+                    {stat.name}
+                  </p>
+                  <p className='text-2xl font-black text-gray-800 tracking-tight'>{stat.value}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* System Status / Notice Board */}
-          <div className='bg-white p-6 rounded-2xl border border-gray-100 shadow-sm'>
-            <h3 className='text-xs font-bold text-gray-800 uppercase tracking-wider mb-2'>
-              Admin Notice
-            </h3>
-            <p className='text-sm text-gray-500 leading-relaxed'>
-              All systems are fully functional. Database backup was successfully completed. If you
-              want to modify products or view data, please select the specific menu from the left
-              sidebar.
-            </p>
+          {/* Professional Notice / System Status */}
+          <div className='flex items-start gap-4 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm'>
+            <div className='flex-shrink-0 w-10 h-10 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600'>
+              <HiOutlineCube size={20} />
+            </div>
+            <div>
+              <h4 className='text-sm font-bold text-gray-800 mb-1'>System Maintenance & Status</h4>
+              <p className='text-sm text-gray-500 leading-relaxed'>
+                All systems are operational. Scheduled database optimization is at{' '}
+                <span className='text-indigo-600 font-medium'>12:00 AM UTC</span>. New security
+                patches have been applied to the payment gateway.
+              </p>
+            </div>
           </div>
         </div>
       </DashBoard>
