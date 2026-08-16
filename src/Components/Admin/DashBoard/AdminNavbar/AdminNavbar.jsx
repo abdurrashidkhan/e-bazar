@@ -9,7 +9,7 @@ export default function AdminNavbar() {
 
   return (
     <div className='w-full flex items-center justify-between'>
-      {/* বাম পাশ: মোবাইল মেনু বাটন এবং সার্চ বার */}
+      {/* left side: mobile menu and search box */}
       <div className='flex items-center gap-4 flex-1'>
         <button className='p-2 md:hidden hover:bg-gray-100 rounded-lg'>
           <FiMenu className='text-xl text-gray-600' />
@@ -27,15 +27,15 @@ export default function AdminNavbar() {
         </div>
       </div>
 
-      {/* ডান পাশ: ল্যাঙ্গুয়েজ, নোটিফিকেশন এবং প্রোফাইল */}
+      {/* User Actions and Profile  */}
       <div className='flex items-center gap-2 md:gap-5'>
-        {/* ল্যাঙ্গুয়েজ/সাপোর্ট (ঐচ্ছিক) */}
+        {/* language and support */}
         <div className='hidden lg:flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 cursor-pointer'>
           <FiHelpCircle />
           <span>Need Help?</span>
         </div>
 
-        {/* নোটিফিকেশন */}
+        {/* notification */}
         <button className='relative p-2 text-gray-500 hover:bg-gray-100 rounded-full transition-all'>
           <FiBell className='text-xl' />
           <span className='absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full border-2 border-white'></span>
@@ -43,7 +43,7 @@ export default function AdminNavbar() {
 
         <div className='h-8 w-[1px] bg-gray-200 mx-2 hidden sm:block'></div>
 
-        {/* ইউজার প্রোফাইল ড্রপডাউন */}
+        {/*user profile dropdown */}
         <div className='relative'>
           <button
             onClick={() => setShowProfile(!showProfile)}
@@ -69,7 +69,7 @@ export default function AdminNavbar() {
             />
           </button>
 
-          {/* ড্রপডাউন মেনু */}
+          {/* dropdown menu  */}
           {showProfile && (
             <div className='absolute right-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2'>
               <div className='px-4 py-2 border-b border-gray-50 mb-1'>

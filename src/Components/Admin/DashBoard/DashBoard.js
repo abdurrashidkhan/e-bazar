@@ -9,7 +9,7 @@ export default function DashBoard({ children }) {
 
   useEffect(() => {
     setIsMounted(true);
-    // স্ক্রিন ছোট হলে সাইডবার অটো বন্ধ হবে
+    // screen small then sidebar auto close
     const handleResize = () => {
       if (window.innerWidth < 1024) setIsOpen(false);
       else setIsOpen(true);
@@ -23,9 +23,9 @@ export default function DashBoard({ children }) {
 
   return (
     <div className='flex min-h-screen bg-[#F8F9FD]'>
-      {/* মেইন কন্টেন্ট এরিয়া */}
+      {/* main content area */}
       <div className='flex-1 flex flex-col min-w-0 overflow-hidden'>
-        {/* উপরের হেডার */}
+        {/* top header */}
         <header className='h-20 bg-white border-b border-gray-100 flex items-center justify-between px-8 sticky top-0 z-30'>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -42,7 +42,7 @@ export default function DashBoard({ children }) {
           </div>
         </header>
 
-        {/* মেইন বডি */}
+        {/* main body */}
         <main className='p-6 md:p-10 overflow-y-auto'>
           <div className='max-w-7xl mx-auto'>{children}</div>
         </main>

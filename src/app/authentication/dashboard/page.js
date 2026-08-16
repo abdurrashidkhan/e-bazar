@@ -16,7 +16,6 @@ const DashboardHome = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    // আজকের তারিখ সেট করা (e.g., August 15, 2024)
     const date = new Date().toLocaleDateString('en-US', {
       month: 'long',
       day: 'numeric',
