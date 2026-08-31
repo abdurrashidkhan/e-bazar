@@ -20,6 +20,7 @@ export default function DashBoard({ children }) {
   }, []);
 
   if (!isMounted) return null;
+  // open and close sidebar with button click
 
   return (
     <div className='flex min-h-screen bg-[#F8F9FD]'>
@@ -31,7 +32,11 @@ export default function DashBoard({ children }) {
             onClick={() => setIsOpen(!isOpen)}
             className='p-2 bg-gray-50 rounded-lg text-gray-600 hover:text-rose-500 transition-all'
           >
-            {isOpen ? <HiChevronLeft size={24} /> : <HiMenuAlt2 size={24} />}
+            {isOpen ? (
+              <HiChevronLeft size={24} onClick={() => setIsOpen(true)} />
+            ) : (
+              <HiMenuAlt2 size={24} onClick={() => setIsOpen(false)} />
+            )}
           </button>
 
           <div className='flex items-center gap-2'>
