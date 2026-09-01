@@ -1,9 +1,9 @@
-import Loading from '@/Components/Common/Loading';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import Swal from 'sweetalert2';
+import Loading from '../../../Common/Loading';
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([])
@@ -81,7 +81,7 @@ const ManageProducts = () => {
                         }
 
                         <td className='flex items-center gap-3'>
-                          <Link href={`/actual/admin/update-products/${p?._id}`}><FaEdit className='text-2xl text-[#04bd48]' /></Link>
+                          <Link to={`/actual/admin/update-products/${p?._id}`}><FaEdit className='text-2xl text-[#04bd48]' /></Link>
                           <button onClick={() => deleteProject(p?._id)}><MdDelete className='text-2xl text-[#c93030]' /></button>
                         </td>
                       </tr>
@@ -96,14 +96,14 @@ const ManageProducts = () => {
               {
                 products?.pagination?.map((n) =>
                   page === n ? (
-                    <button key={n}
+                    <button
                       onClick={() => setPage(n)}
                       className="btn btn-sm bg-pink-600  border-none outline-none hover:bg-pink-500"
                     >
                       {n}
                     </button>
                   ) : (
-                    <button key={n}
+                    <button
                       onClick={() => setPage(n)}
                       className="btn btn-sm  border-none outline-none bg-slate-400 text-[#000] hover:bg-pink-500"
                     >

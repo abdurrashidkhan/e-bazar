@@ -1,11 +1,11 @@
-import { auth } from '@/app/firebase.init';
-import Loading from '@/Components/Common/Loading';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import Swal from 'sweetalert2';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../../firebase.init';
+import Loading from '../../../Common/Loading';
 
 const ManageUsers = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -79,8 +79,8 @@ const ManageUsers = () => {
               {/* row 1 */}
               {
                 users?.map((p, index) =>
-                  <tr className='border-[#00000021]  ' key={p?._id}>
-                    <td> {index + 1} </td>
+                  <tr className='border-[#00000021] '>
+                    <td key={p?._id}> {index + 1} </td>
                     <td className='capitalize text-xs sm:text-sm'> {p?.displayName} </td>
                     {
                       p?.email === 'rashidkhanbd57@gmail.com' ? <td className=' text-xs sm:text-sm'> admin.support@gmail.com </td>
@@ -90,7 +90,7 @@ const ManageUsers = () => {
                       p?.role === 'admin' ? <td className='capitalize text-xs sm:text-sm'> {p?.role} </td> : <td className='capitalize text-xs sm:text-sm'> Normal</td>
                     }
                     <td className='flex items-center gap-3'>
-                      <Link href={`/user/update/${p?._id}`}><FaEdit className='text-2xl text-[#04bd48]' /></Link>
+                      <Link to={`/user/update/${p?._id}`}><FaEdit className='text-2xl text-[#04bd48]' /></Link>
                       <button onClick={() => deleteProject(p?._id)}><MdDelete className='text-2xl text-[#c93030]' /></button>
                     </td>
                   </tr>
