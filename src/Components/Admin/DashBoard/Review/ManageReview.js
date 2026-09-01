@@ -1,9 +1,9 @@
-import Loading from '@/Components/Common/Loading';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import Swal from 'sweetalert2';
+import Loading from '../../common/Loading/Loading';
 
 const ManageReview = () => {
   const [users, SetUsers] = useState([])
@@ -76,7 +76,7 @@ const ManageReview = () => {
                         <td > {p?.userEmail} </td>
                         <td > {p?.userCity} </td>
                         <td className='flex items-center gap-3'>
-                          <Link href={`/user/update/${p?._id}`}><FaEdit className='text-2xl text-[#04bd48]' /></Link>
+                          <Link to={`/user/update/${p?._id}`}><FaEdit className='text-2xl text-[#04bd48]' /></Link>
                           <button onClick={() => deleteProject(p?._id)}><MdDelete className='text-2xl text-[#c93030]' /></button>
                         </td>
                       </tr>
