@@ -12,10 +12,10 @@ export async function POST(request) {
       total_amount: payment.totalPrice,
       currency: "BDT",
       tran_id: trxId,
-      success_url: "/payment/success-payment",
-      fail_url: "/payment/fail",
-      cancel_url: "/payment/cancel",
-      ipn_url: "/payment/ipm-payment-success",
+      success_url: `${process.env.BASE_URL}/api/payment/success-payment`,
+      fail_url: `${process.env.BASE_URL}/payment/fail`,
+      cancel_url: `${process.env.BASE_URL}/payment/cancel`,
+      ipn_url: `${process.env.BASE_URL}/api/payment/ipn-payment-success`,
       cus_name: "Customer Name",
       cus_email: payment.email,
       cus_add1: "Dhaka&",
@@ -45,13 +45,12 @@ export async function POST(request) {
         "Content-Type": "application/x-www-form-urlencoded"
       }
     })
-    console.log(isResponse?.data?.GatewayPageURL)
+    // insert payment data insert into the database
 
 
+    // anther route hit for the verify payment
 
-
-
-
+    // console.log(isResponse?.data?.GatewayPageURL)
     return NextResponse.json({
       status: 200,
       message: "payment init",
