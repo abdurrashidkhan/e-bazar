@@ -1,6 +1,7 @@
 'use client';
 import ProductFormModal from '@/Components/DashBoard/product-form';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 export default function ProductsPage() {
   const [isOpen, setIsOpen] = useState(true);
@@ -26,12 +27,14 @@ export default function ProductsPage() {
 
   // Save — update
   const handleSave = async (product) => {
-    await fetch(`/api/products/${product._id}`, {
-      method: 'PUT',
+    console.log('Saving product:', product);
+    await fetch(`/api/products/`, {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(product),
     });
-    // Optionally refresh your list here
+    handleClose();
+    Swal.success('Product saved successfully!', '', 'success');
   };
 
   return (
